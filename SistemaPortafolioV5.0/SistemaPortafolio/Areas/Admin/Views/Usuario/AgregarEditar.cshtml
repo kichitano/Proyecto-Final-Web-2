@@ -1,0 +1,100 @@
+﻿@model SistemaPortafolio.Models.Usuario
+@{
+    List<SistemaPortafolio.Models.Persona> persona = ViewBag.Persona;
+    List<SistemaPortafolio.Models.TipoUsuario> tipousuario = ViewBag.TipoUsuario;
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>AGREGAR/EDITAR</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Usuario">Usuario</a></li>
+            <li class="active">@(Model.usuario_id > 0 ? Model.nombre : "Nuevo Registro")</li>
+        </ol>
+        @using (Html.BeginForm("Guardar", "Usuario", FormMethod.Post, new { id = "frm_usuario" }))
+        {
+            @Html.HiddenFor(x => x.usuario_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información del Usuario</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.usuario_id, new { @class = "form-control", @disabled = true })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Persona:</label>
+                        <select name="persona_id" class="form-control">
+                            @foreach (var p in persona)
+                            {
+                                <option @(Model.persona_id.Equals(p.persona_id) ? "selected" : "") value="@p.persona_id" class="form-control">@p.nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo Persona:</label>
+                        <select name="tipousuario" class="form-control">
+                            @foreach (var p in tipousuario)
+                            {
+                                <option @(Model.tipousuario.Equals(p.tipousuario_id) ? "selected" : "") value="@p.tipousuario_id" class="form-control">@p.nombre</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Nombre del Usuario:</label>
+                        @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+
+                    </div>
+                    @if (Model.usuario_id != 0)
+                    {
+                        <div class="form-group">
+                            <label>Contraseña del Usuario:</label>
+                            <input type="text" class="form-control" name="clave" placeholder="Existe una contraseña generada! Deja en blanco si no deseas cambiarla." />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label>Contraseña del Usuario:</label>
+                            @Html.TextBoxFor(x => x.clave, new { @class = "form-control" })
+                        </div>
+                    }
+                    @if (Model.avatar != null)
+                    {
+                        @Html.HiddenFor(x => x.avatar)
+                    }
+                    else
+                    {
+                        <input type="text" value="" name="avatar" hidden />
+                    }
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        @{
+                            List<SelectListItem> estado = new List<SelectListItem>();
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Activo",
+                                Value = "Activo"
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Inactivo",
+                                Value = "Inactivo",
+                            });
+                        }
+                        @Html.DropDownListFor(x => x.estado, estado, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/Admin/Usuario" class="btn btn-danger">Cancelar</a>
+            </div>
+                            }
+        </div></div>

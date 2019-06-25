@@ -1,0 +1,113 @@
+﻿@model List<SistemaPortafolio.Models.Curso>
+
+@{
+    List<SistemaPortafolio.Models.Ciclo> ciclo = ViewBag.ciclo;
+    var plan_id = ViewBag.plan_id;
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/Curso/AgregarEditar/">Nuevo Curso</a>
+        </div><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", columna: "curso_cod", ordenable: true,class:"info" },
+
+                    {
+                        leyenda: 'CICLO', style: 'width:200px;', columna: 'nombre', class: "info", filtro: function () {
+                            return anexGrid_select({
+                                data: [
+                                    { valor: '', contenido: 'Todo' },
+                                    @foreach(var s in ciclo)
+                                    {
+                                        <text>
+                                            { valor: '@s.ciclo_id', contenido: '@s.nombre' },
+                                        </text>
+                                    }
+                                ]
+                            });
+                        }
+                    },
+
+                    { leyenda: "NOMBRE DEL CURSO", columna: "nombrecurso", class: "info", ordenable: true, filtro: true },
+                    { leyenda: "PRE-REQUISITO", columna: "prerequisito", class: "info" },
+
+                    { style: 'Width: 40px;', class: "info" },//visualizar
+                { style: 'Width: 40px;', class: "info" },//Modificar
+                { style: 'Width: 40px;', class: "info" },//Elimianr
+                ],
+
+                modelo: [
+
+                    { propiedad: "curso_cod" },
+                    { propiedad: "nombre" },
+                    {
+                        propiedad: "nombrecurso", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Curso/AgregarEditar/")'
+                            + obj.plan_id, contenido: valor
+                            });
+                        }
+                    },
+                    { propiedad: "prerequisito" },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Curso/Ver/")'
+                            + obj.curso_cod, contenido: "Detalle",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Curso/AgregarEditar/")'
+                            + obj.curso_cod, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Curso/Eliminar/")'
+                            + obj.curso_cod, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/Curso/CargarGrilla/" + plan_id)',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'curso_cod',
+                columna_orden: "DESC"
+            });
+    })
+</script>

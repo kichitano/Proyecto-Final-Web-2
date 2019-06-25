@@ -1,0 +1,315 @@
+﻿
+@{
+    SistemaPortafolio.Models.MetadataDocumento ultimametadata = ViewBag.ultimametadata;
+    List<SistemaPortafolio.Models.TipoDocumento> tipodoc = ViewBag.tipodocumento;
+    List<SistemaPortafolio.Models.MetadataDocumento> antiguametadata = ViewBag.antiguametadata;
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+    string pagtotal = "";
+    string paltotal = "";
+    string cartotal = "";
+    string lintotal = "";
+    string parrtotal = "";
+    string taman = "";
+    string celda = "";
+    string columna = "";
+    string fecha = "";
+}
+
+<br />
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div>
+            <h2>CONSULTA: Metadata por Tipo de Documento de Docentes (Comparación entre la última subida con las anteriores)</h2>
+        </div><br /><br />
+
+        @using (Html.BeginForm("Index", "Consulta05", FormMethod.Post, new { criterio = "frm-buscar" }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Criterios de la Consulta</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Seleccione el Semestre:</label>
+                        <select name="semestre" class="form-control">
+                            @foreach (var s in semestre)
+                            {
+                                <option value="@s.semestre_id">@s.nombre</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Seleccione el Tipo de Documento:</label>
+                        <select name="tipodocumento" class="form-control">
+                            @foreach (var s in tipodoc)
+                            {
+                                <option value="@s.tipodocumento_id">@s.nombre</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Buscar Docente:</label>
+                        <input type="text" name="codigopersona" class="form-control" placeholder="Buscar por DNI o Código" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Generar Consulta" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (ultimametadata != null)
+        {
+            if (Session["tipodoc"].ToString().Equals(".docx") || Session["tipodoc"].ToString().Equals(".doc"))
+            {
+                //word
+                <div class="panel panel-default">
+                    <div class="panel-heading">Última Subida de Archivo <b>Word</b></div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Página Total</th>
+                                    <th>Palabra Total</th>
+                                    <th>Caracter Total</th>
+                                    <th>Línea Total</th>
+                                    <th>Párrafo Total</th>
+                                    <th>Tamaño</th>
+                                    <th>Fecha de Subida</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>@ultimametadata.pagina_total</th>
+                                    <th>@ultimametadata.palabra_total</th>
+                                    <th>@ultimametadata.caracter_total</th>
+                                    <th>@ultimametadata.linea_total</th>
+                                    <th>@ultimametadata.parrafo_total</th>
+                                    <th>@ultimametadata.tamanio</th>
+                                    @try
+                                    {
+                                        System.DateTime dt = Convert.ToDateTime(ultimametadata.fecha_subida);
+                                        fecha = dt.ToString("dd/MM/yyyy");
+                                    }
+                                    catch (Exception e)
+                                    {
+
+                                    }
+                                    <th>@fecha</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Comparación con Antiguas Subidas</div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Página Total</th>
+                                    <th>Palabra Total</th>
+                                    <th>Caracter Total</th>
+                                    <th>Línea Total</th>
+                                    <th>Párrafo Total</th>
+                                    <th>Tamaño</th>
+                                    <th>Fecha de Subida</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in antiguametadata)
+                                {
+                                    <tr>
+                                        @{ pagtotal = (-c.pagina_total + ultimametadata.pagina_total).ToString(); }
+                                        @{ paltotal = (-c.palabra_total + ultimametadata.palabra_total).ToString(); }
+                                        @{ cartotal = (-c.caracter_total + ultimametadata.caracter_total).ToString(); }
+                                        @{ lintotal = (-c.linea_total + ultimametadata.linea_total).ToString(); }
+                                        @{ parrtotal = (-c.parrafo_total + ultimametadata.parrafo_total).ToString(); }
+
+                                        @{ string[] ultimo = c.tamanio.Split(' '); }
+                                        @{ string[] nuevo = ultimametadata.tamanio.Split(' '); }
+
+                                        @{ taman = (-Convert.ToDouble(ultimo[0]) + Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                        @if (Convert.ToInt32(pagtotal) < 0)
+                                        {
+                                            <th class="alert-danger"><b class="text-black">-@pagtotal.ToString()</b></th>
+                                        }
+                                        else
+                                        {
+                                            <th class="alert-success"><b class="text-black">+@pagtotal.ToString()</b></th>
+                                        }
+
+                                        @if (Convert.ToInt32(paltotal) < 0)
+                                        {
+                                            <th class="alert-danger"><b class="text-black">-@paltotal.ToString()</b></th>
+                                        }
+                                        else
+                                        {
+                                            <th class="alert-success"><b class="text-black">+@paltotal.ToString()</b></th>
+                                        }
+
+                                        @if (Convert.ToInt32(cartotal) < 0)
+                                        {
+                                            <th class="alert-danger"><b class="text-black">-@cartotal.ToString()</b></th>
+                                        }
+                                        else
+                                        {
+                                            <th class="alert-success"><b class="text-black">+@cartotal.ToString()</b></th>
+                                        }
+
+                                        @if (Convert.ToInt32(lintotal) < 0)
+                                        {
+                                            <th class="alert-danger"><b class="text-black">-@lintotal.ToString()</b></th>
+                                        }
+                                        else
+                                        {
+                                            <th class="alert-success"><b class="text-black">+@lintotal.ToString()</b></th>
+                                        }
+
+                                        @if (Convert.ToInt32(parrtotal) < 0)
+                                        {
+                                            <th class="alert-danger"><b class="text-black">-@parrtotal.ToString()</b></th>
+                                        }
+                                        else
+                                        {
+                                            <th class="alert-success"><b class="text-black">+@parrtotal.ToString()</b></th>
+                                        }
+
+                                        @if (Convert.ToDouble(taman) < 0)
+                                        {
+                                            <th class="alert-danger"><b class="text-black">-@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                        }
+                                        else
+                                        {
+                                            <th class="alert-success"><b class="text-black">+@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                        }
+                                        @try
+                                        {
+                                            System.DateTime dt = Convert.ToDateTime(ultimametadata.fecha_subida);
+                                            fecha = dt.ToString("dd/MM/yyyy");
+                                        }
+                                        catch (Exception e)
+                                        {
+
+                                        }
+                                        <th>@fecha</th>
+                                    </tr>
+                                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                                            }
+                                            else if (Session["tipodoc"].ToString().Equals(".xlsx") || Session["tipodoc"].ToString().Equals(".xls"))
+                                            {
+                                                //excel
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">Última Subida de Archivo <b>Excel</b></div>
+                                                    <div class="panel-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Fila Total</th>
+                                                                    <th>Columna Total</th>
+                                                                    <th>Tamaño</th>
+                                                                    <th>Fecha de Subida</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>@ultimametadata.celda</th>
+                                                                    <th>@ultimametadata.columna</th>
+                                                                    <th>@ultimametadata.tamanio</th>
+                                                                    @try
+                                                                    {
+                                                                        System.DateTime dt = Convert.ToDateTime(ultimametadata.fecha_subida);
+                                                                        fecha = dt.ToString("dd/MM/yyyy");
+                                                                    }
+                                                                    catch (Exception e)
+                                                                    {
+
+                                                                    }
+                                                                    <th>@fecha</th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">Comparación con Antiguas Subidas</div>
+                                                    <div class="panel-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Fila Total</th>
+                                                                    <th>Columna Total</th>
+                                                                    <th>Tamaño</th>
+                                                                    <th>Fecha de Subida</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var c in antiguametadata)
+                                                                {
+                                                                    <tr>
+                                                                        @{ celda = (-c.celda + ultimametadata.celda).ToString(); }
+                                                                        @{ columna = (-c.columna + ultimametadata.columna).ToString(); }
+
+                                                                        @{ string[] ultimo = c.tamanio.Split(' '); }
+                                                                        @{ string[] nuevo = ultimametadata.tamanio.Split(' '); }
+
+                                                                        @{ taman = (-Convert.ToDouble(ultimo[0]) + Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                                                        @if (Convert.ToInt32(celda) < 0)
+                                                                        {
+                                                                            <th class="alert-danger"><b class="text-black">-@celda.ToString()</b></th>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <th class="alert-success"><b class="text-black">+@celda.ToString()</b></th>
+                                                                        }
+
+                                                                        @if (Convert.ToInt32(columna) < 0)
+                                                                        {
+                                                                            <th class="alert-danger"><b class="text-black">-@columna.ToString()</b></th>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <th class="alert-success"><b class="text-black">+@columna.ToString()</b></th>
+                                                                        }
+
+                                                                        @if (Convert.ToDouble(taman) < 0)
+                                                                        {
+                                                                            <th class="alert-danger"><b class="text-black">-@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <th class="alert-success"><b class="text-black">+@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                        }
+
+                                                                        @try
+                                                                        {
+                                                                            System.DateTime dt = Convert.ToDateTime(ultimametadata.fecha_subida);
+                                                                            fecha = dt.ToString("dd/MM/yyyy");
+                                                                        }
+                                                                        catch (Exception e)
+                                                                        {
+
+                                                                        }
+                                                                        <th>@fecha</th>
+                                                                    </tr>
+                                                                            }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                                                }
+                                                                            }
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model SistemaPortafolio.Models.CursoDocente
+@{
+    List<SistemaPortafolio.Models.CursoDocente> cursoalumno = ViewBag.cursoalumno;
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <h2>CURSOS DEL ALUMNO</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Alumno/Index">Alumnos</a></li>
+        </ol>
+
+
+        @using (Html.BeginForm("AgregarCurso", "Alumno", FormMethod.Post, new { id = "frm-proyecto" }))
+        {
+            <div class="form-group">
+                <label>Agregar Cursos:</label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="codigo" class="form-control" placeholder="Código del Curso" />
+            </div>
+            <input type="hidden" name="persona" value="@Session["idd_persona"].ToString()" />
+            <div class="form-group">
+                <button data-ajax="true" class="btn btn-success">Agregar Curso</button>
+            </div>
+
+            <br />
+        }
+        @if (cursoalumno.Count != 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Cursos</div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 200px;">Plan de Estudio</th>
+                                <th style="width: 50px;">Código</th>
+                                <th style="width: 200px;">Nombre</th>
+                                <th style="width: 200px;">Ciclo</th>
+                                <th style="width: 200px;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in cursoalumno)
+                            {
+                                <tr>
+                                    <th>@i.Curso.PlanEstudio.nombre</th>
+                                    <th>@i.curso_cod</th>
+                                    <th>@i.Curso.nombre</th>
+                                    <th>@i.Curso.Ciclo.nombre</th>
+                                    <th><i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/Alumno/EliminarCurso/@i.cursodocente_id"  class="btn btn-danger btn-sm  glyphicon glyphicon-remove"></a></i></th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+
+        <br />
+
+    </div>
+</div>

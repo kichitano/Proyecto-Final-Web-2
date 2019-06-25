@@ -1,0 +1,116 @@
+﻿@model List<SistemaPortafolio.Models.HojaVidaDocenteEX>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+<div class="text-right">
+    <a class="btn btn-primary" href="~/User/HojaVidaDocenteEX/AgregarEditar/">Nueva hojavidadocenteex</a>
+</div>
+<br />
+<div id="Grilla"></div>
+
+<script>
+        $(document).ready(function () {
+            $("#Grilla").anexGrid({
+                //  class: 'table table-hover',
+                columnas: [
+                    //columna 1: id
+                    {
+                        leyenda: 'ID', columna: "hojavidadocenteex_id", class: 'danger', style: 'width:50px;', ordenable: true
+                    },
+                    //columna 2: id
+                    {
+                        leyenda: 'hojavida_id', columna: 'hojavida_id', class: 'danger', ordenable: true, filtro: true
+                    },
+                    //columna 3: id
+                    {
+                        leyenda: 'institucion', columna: 'institucion', class: 'danger', ordenable: true, filtro: true
+                    },
+                    //columna 4
+                    {
+                        leyenda: 'fechainicio', columna: 'fechainicio', class: 'danger', ordenable: true, filtro: true
+                    },
+                     //columna 5: id
+                    {
+                        leyenda: 'fechafin', columna: 'fechafin', class: 'danger', ordenable: true
+                    },
+                     //columna 5: id
+                      {
+                          leyenda: 'funcion', columna: 'funcion', class: 'danger', ordenable: true
+                      },
+                    //agregar las columnas de los datos
+                    { style: 'Width: 40px;', class: 'danger' },//visualizar
+                    { style: 'Width: 40px;', class: 'danger' },//Modificar
+                    { style: 'Width: 40px;', class: 'danger' },//Elimianr
+                ],
+                modelo: [
+                    //campo 1: id
+                    { propiedad: 'hojavidadocenteex_id' },
+                    //campo2: Nombre del cargo
+
+                    {
+                        propiedad: 'hojavida_id', formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/User/HojaVidaDocenteEX/ver/")' + obj.hojavidadocenteex_id,
+                                contenido: valor
+                            });
+                        }
+                    },
+
+                    { propiedad: 'institucion' },
+                    { propiedad: 'fechainicio' },
+                    { propiedad: 'fechafin' },
+                    { propiedad: 'funcion' },
+
+
+                //los botones
+                //boton visualizar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/User/HojaVidaDocenteEX/ver/")' + obj.hojavidadocenteex_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+
+                        });
+                    },
+                },
+                //boton modificar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/User/HojaVidaDocenteEX/AgregarEditar/")' + obj.hojavidadocenteex_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                        });
+                    },
+                },
+                //boton eliminar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/User/HojaVidaDocenteEX/Eliminar/")' + obj.hojavidadocenteex_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-warning btn-sm',
+                            attr: [
+                                'onclick="return confirm(\'¿Esta seguro de eliminar el registro?\')"'
+                            ]
+                        });
+                    },
+                }
+
+                ],
+                url: '@Url.Content("~/User/HojaVidaDocenteEX/CargarGrilla/")',
+                paginable: true,
+                filtrable: true,
+                limite: [10, 20, 50, 100],
+                columna: 'hojavidadocenteex_id',
+                columna_orden: "DESC"
+            });
+
+        }
+        )
+</script>
+

@@ -1,0 +1,451 @@
+﻿@model SistemaPortafolio.Models.Documento
+
+@{
+    SistemaPortafolio.Models.MetadataDocumento ultimometadata = ViewBag.ultimometadata;
+    SistemaPortafolio.Models.MetadataDocumento metadatanuevo = ViewBag.metadatanuevo;
+    string pagtotal = "";
+    string diapositiva = "";
+    string paltotal = "";
+    string cartotal = "";
+    string lintotal = "";
+    string parrtotal = "";
+    string taman = "";
+    string celda = "";
+    string columna = "";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        @try
+            {
+                if (ultimometadata.metadata_id == 0 && metadatanuevo != null)
+                {
+                    if (Model.extension.Contains("pptx") || Model.extension.Contains("ppt"))
+                    {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Comparación de Carga de Archivos<b> PowerPoint</b> (Última y Reciente subida)</div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Diapositiva</th>
+                                        <th>Palabra Total</th>
+                                        <th>Línea Total</th>
+                                        <th>Párrafo Total</th>
+                                        <th>Tamaño</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Subida Actual</th>
+                                        <th>@metadatanuevo.diapositiva</th>
+                                        <th>@metadatanuevo.palabra_total</th>
+                                        <th>@metadatanuevo.linea_total</th>
+                                        <th>@metadatanuevo.parrafo_total</th>
+                                        <th>@metadatanuevo.tamanio</th>
+                                    </tr>
+                                    <tr>
+                                        @{ diapositiva = (metadatanuevo.diapositiva).ToString(); }
+                                        @{ paltotal = (metadatanuevo.palabra_total).ToString();
+                                        }
+                                        @{ lintotal = (metadatanuevo.linea_total).ToString();
+                                        }
+                                        @{ parrtotal = (metadatanuevo.parrafo_total).ToString(); }
+
+                                        @{ string[] nuevo = metadatanuevo.tamanio.Split(' '); }
+
+                                        @{ taman = (Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                        <th>Comparación</th>
+                                        <th class="alert-success"><b class="text-black">@diapositiva.ToString()</b></th>
+                                        <th class="alert-success"><b class="text-black">@paltotal.ToString()</b></th>
+                                        <th class="alert-success"><b class="text-black">@lintotal.ToString()</b></th>
+                                        <th class="alert-success"><b class="text-black">@parrtotal.ToString()</b></th>
+                                        <th class="alert-success"><b class="text-black">@taman.ToString() KB</b></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                                            }
+                                            else if (Model.extension.Contains("docx") || Model.extension.Contains("doc"))
+                                            {
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">Comparación de Carga de Archivos <b>Word</b> (Última y Reciente subida)</div>
+                                                    <div class="panel-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>Página Total</th>
+                                                                    <th>Palabra Total</th>
+                                                                    <th>Caracter Total</th>
+                                                                    <th>Línea Total</th>
+                                                                    <th>Párrafo Total</th>
+                                                                    <th>Tamaño</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Subida Actual</th>
+                                                                    <th>@metadatanuevo.pagina_total</th>
+                                                                    <th>@metadatanuevo.palabra_total</th>
+                                                                    <th>@metadatanuevo.caracter_total</th>
+                                                                    <th>@metadatanuevo.linea_total</th>
+                                                                    <th>@metadatanuevo.parrafo_total</th>
+                                                                    <th>@metadatanuevo.tamanio</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    @{ pagtotal = (metadatanuevo.pagina_total).ToString(); }
+                                                                    @{ paltotal = (metadatanuevo.palabra_total).ToString(); }
+                                                                    @{ cartotal = (metadatanuevo.caracter_total).ToString(); }
+                                                                    @{ lintotal = (metadatanuevo.linea_total).ToString(); }
+                                                                    @{ parrtotal = (metadatanuevo.parrafo_total).ToString(); }
+
+                                                                    @{ string[] nuevo = metadatanuevo.tamanio.Split(' '); }
+
+                                                                    @{ taman = (Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                                                    <th>Comparación</th>
+                                                                    <th class="alert-success"><b class="text-black">@pagtotal.ToString()</b></th>
+                                                                    <th class="alert-success"><b class="text-black">@paltotal.ToString()</b></th>
+                                                                    <th class="alert-success"><b class="text-black">@cartotal.ToString()</b></th>
+                                                                    <th class="alert-success"><b class="text-black">@lintotal.ToString()</b></th>
+                                                                    <th class="alert-success"><b class="text-black">@parrtotal.ToString()</b></th>
+                                                                    <th class="alert-success"><b class="text-black">@taman.ToString() KB</b></th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                                        }
+                                                                        else if (Model.extension.Contains("xlsx") || Model.extension.Contains("xls"))
+                                                                        {
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-heading">Comparación de Carga de Archivos <b>Excel</b> (Última y Reciente subida)</div>
+                                                                                <div class="panel-body">
+                                                                                    <table class="table table-bordered">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th></th>
+                                                                                                <th>Fila</th>
+                                                                                                <th>Columna</th>
+                                                                                                <th>Tamaño</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <th>Subida Actual</th>
+                                                                                                <th>@metadatanuevo.celda</th>
+                                                                                                <th>@metadatanuevo.columna</th>
+                                                                                                <th>@metadatanuevo.tamanio</th>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                @{ celda = (metadatanuevo.celda).ToString(); }
+                                                                                                @{ columna = (metadatanuevo.columna).ToString(); }
+
+                                                                                                @{ string[] nuevo = metadatanuevo.tamanio.Split(' '); }
+
+                                                                                                @{ taman = (Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                                                                                <th>Comparación</th>
+                                                                                                <th class="alert-success"><b class="text-black">@celda.ToString()</b></th>
+                                                                                                <th class="alert-success"><b class="text-black">@columna.ToString()</b></th>
+                                                                                                <th class="alert-success"><b class="text-black">@taman.ToString() KB</b></th>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                                                        }
+
+                                                                                                    }
+                                                                                                    else if (ultimometadata != null && metadatanuevo != null)
+                                                                                                    {
+                                                                                                        if (Model.extension.Contains("pptx") || Model.extension.Contains("ppt"))
+                                                                                                        {
+                                                                                                            <div class="panel panel-default">
+                                                                                                                <div class="panel-heading">Comparación de Carga de Archivos <b>PowerPoint</b> (Última y Reciente subida)</div>
+                                                                                                                <div class="panel-body">
+                                                                                                                    <table class="table table-bordered">
+                                                                                                                        <thead>
+                                                                                                                            <tr>
+                                                                                                                                <th></th>
+                                                                                                                                <th>Diapositiva</th>
+                                                                                                                                <th>Palabra Total</th>
+                                                                                                                                <th>Línea Total</th>
+                                                                                                                                <th>Párrafo Total</th>
+                                                                                                                                <th>Tamaño</th>
+                                                                                                                            </tr>
+                                                                                                                        </thead>
+                                                                                                                        <tbody>
+                                                                                                                            <tr>
+                                                                                                                                <th>Última Subida</th>
+                                                                                                                                <th>@ultimometadata.diapositiva</th>
+                                                                                                                                <th>@ultimometadata.palabra_total</th>
+                                                                                                                                <th>@ultimometadata.linea_total</th>
+                                                                                                                                <th>@ultimometadata.parrafo_total</th>
+                                                                                                                                <th>@ultimometadata.tamanio</th>
+                                                                                                                            </tr>
+                                                                                                                            <tr>
+                                                                                                                                <th>Subida Actual</th>
+                                                                                                                                <th>@metadatanuevo.diapositiva</th>
+                                                                                                                                <th>@metadatanuevo.palabra_total</th>
+                                                                                                                                <th>@metadatanuevo.linea_total</th>
+                                                                                                                                <th>@metadatanuevo.parrafo_total</th>
+                                                                                                                                <th>@metadatanuevo.tamanio</th>
+                                                                                                                            </tr>
+                                                                                                                            <tr>
+                                                                                                                                @{ diapositiva = (-ultimometadata.diapositiva + metadatanuevo.diapositiva).ToString(); }
+                                                                                                                                @{ paltotal = (-ultimometadata.palabra_total + metadatanuevo.palabra_total).ToString(); }
+                                                                                                                                @{ lintotal = (-ultimometadata.linea_total + metadatanuevo.linea_total).ToString(); }
+                                                                                                                                @{ parrtotal = (-ultimometadata.parrafo_total + metadatanuevo.parrafo_total).ToString(); }
+
+                                                                                                                                @{ string[] ultimo = ultimometadata.tamanio.Split(' '); }
+                                                                                                                                @{ string[] nuevo = metadatanuevo.tamanio.Split(' '); }
+
+                                                                                                                                @{ taman = (-Convert.ToDouble(ultimo[0]) + Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                                                                                                                <th>Comparación</th>
+
+                                                                                                                                @if (Convert.ToInt32(diapositiva) < 0)
+                                                                                                                                {
+                                                                                                                                    <th class="alert-danger"><b class="text-black">-@diapositiva.ToString()</b></th>
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <th class="alert-success"><b class="text-black">+@diapositiva.ToString()</b></th>
+                                                                                                                                }
+
+                                                                                                                                @if (Convert.ToInt32(paltotal) < 0)
+                                                                                                                                {
+                                                                                                                                    <th class="alert-danger"><b class="text-black">-@paltotal.ToString()</b></th>
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <th class="alert-success"><b class="text-black">+@paltotal.ToString()</b></th>
+                                                                                                                                }
+
+                                                                                                                                @if (Convert.ToInt32(lintotal) < 0)
+                                                                                                                                {
+                                                                                                                                    <th class="alert-danger"><b class="text-black">-@lintotal.ToString()</b></th>
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <th class="alert-success"><b class="text-black">+@lintotal.ToString()</b></th>
+                                                                                                                                }
+
+                                                                                                                                @if (Convert.ToInt32(parrtotal) < 0)
+                                                                                                                                {
+                                                                                                                                    <th class="alert-danger"><b class="text-black">-@parrtotal.ToString()</b></th>
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <th class="alert-success"><b class="text-black">+@parrtotal.ToString()</b></th>
+                                                                                                                                }
+
+                                                                                                                                @if (Convert.ToDouble(taman) < 0)
+                                                                                                                                {
+                                                                                                                                    <th class="alert-danger"><b class="text-black">-@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <th class="alert-success"><b class="text-black">+@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                                                                                }
+                                                                                                                            </tr>
+                                                                                                                        </tbody>
+                                                                                                                    </table>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                                                    }
+                                                                                                                                    else if (Model.extension.Contains("docx") || Model.extension.Contains("doc"))
+                                                                                                                                    {
+                                                                                                                                        <div class="panel panel-default">
+                                                                                                                                            <div class="panel-heading">Comparación de Carga de Archivos <b>Word</b> (Última y Reciente subida)</div>
+                                                                                                                                            <div class="panel-body">
+                                                                                                                                                <table class="table table-bordered">
+                                                                                                                                                    <thead>
+                                                                                                                                                        <tr>
+                                                                                                                                                            <th></th>
+                                                                                                                                                            <th>Página Total</th>
+                                                                                                                                                            <th>Palabra Total</th>
+                                                                                                                                                            <th>Caracter Total</th>
+                                                                                                                                                            <th>Línea Total</th>
+                                                                                                                                                            <th>Párrafo Total</th>
+                                                                                                                                                            <th>Tamaño</th>
+                                                                                                                                                        </tr>
+                                                                                                                                                    </thead>
+                                                                                                                                                    <tbody>
+                                                                                                                                                        <tr>
+                                                                                                                                                            <th>Última Subida</th>
+                                                                                                                                                            <th>@ultimometadata.pagina_total</th>
+                                                                                                                                                            <th>@ultimometadata.palabra_total</th>
+                                                                                                                                                            <th>@ultimometadata.caracter_total</th>
+                                                                                                                                                            <th>@ultimometadata.linea_total</th>
+                                                                                                                                                            <th>@ultimometadata.parrafo_total</th>
+                                                                                                                                                            <th>@ultimometadata.tamanio</th>
+                                                                                                                                                        </tr>
+                                                                                                                                                        <tr>
+                                                                                                                                                            <th>Subida Actual</th>
+                                                                                                                                                            <th>@metadatanuevo.pagina_total</th>
+                                                                                                                                                            <th>@metadatanuevo.palabra_total</th>
+                                                                                                                                                            <th>@metadatanuevo.caracter_total</th>
+                                                                                                                                                            <th>@metadatanuevo.linea_total</th>
+                                                                                                                                                            <th>@metadatanuevo.parrafo_total</th>
+                                                                                                                                                            <th>@metadatanuevo.tamanio</th>
+                                                                                                                                                        </tr>
+                                                                                                                                                        <tr>
+                                                                                                                                                            @{ pagtotal = (-ultimometadata.pagina_total + metadatanuevo.pagina_total).ToString(); }
+                                                                                                                                                            @{ paltotal = (-ultimometadata.palabra_total + metadatanuevo.palabra_total).ToString(); }
+                                                                                                                                                            @{ cartotal = (-ultimometadata.caracter_total + metadatanuevo.caracter_total).ToString(); }
+                                                                                                                                                            @{ lintotal = (-ultimometadata.linea_total + metadatanuevo.linea_total).ToString(); }
+                                                                                                                                                            @{ parrtotal = (-ultimometadata.parrafo_total + metadatanuevo.parrafo_total).ToString(); }
+
+                                                                                                                                                            @{ string[] ultimo = ultimometadata.tamanio.Split(' '); }
+                                                                                                                                                            @{ string[] nuevo = metadatanuevo.tamanio.Split(' '); }
+
+                                                                                                                                                            @{ taman = (-Convert.ToDouble(ultimo[0]) + Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                                                                                                                                            <th>Comparación</th>
+
+                                                                                                                                                            @if (Convert.ToInt32(pagtotal) < 0)
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-danger"><b class="text-black">-@pagtotal.ToString()</b></th>
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-success"><b class="text-black">+@pagtotal.ToString()</b></th>
+                                                                                                                                                            }
+
+                                                                                                                                                            @if (Convert.ToInt32(paltotal) < 0)
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-danger"><b class="text-black">-@paltotal.ToString()</b></th>
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-success"><b class="text-black">+@paltotal.ToString()</b></th>
+                                                                                                                                                            }
+
+                                                                                                                                                            @if (Convert.ToInt32(cartotal) < 0)
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-danger"><b class="text-black">-@cartotal.ToString()</b></th>
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-success"><b class="text-black">+@cartotal.ToString()</b></th>
+                                                                                                                                                            }
+
+                                                                                                                                                            @if (Convert.ToInt32(lintotal) < 0)
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-danger"><b class="text-black">-@lintotal.ToString()</b></th>
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-success"><b class="text-black">+@lintotal.ToString()</b></th>
+                                                                                                                                                            }
+
+                                                                                                                                                            @if (Convert.ToInt32(parrtotal) < 0)
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-danger"><b class="text-black">-@parrtotal.ToString()</b></th>
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-success"><b class="text-black">+@parrtotal.ToString()</b></th>
+                                                                                                                                                            }
+
+                                                                                                                                                            @if (Convert.ToDouble(taman) < 0)
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-danger"><b class="text-black">-@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <th class="alert-success"><b class="text-black">+@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                                                                                                            }
+                                                                                                                                                        </tr>
+                                                                                                                                                    </tbody>
+                                                                                                                                                </table>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                                                }
+                                                                                                                                                                else if (Model.extension.Contains("xlsx") || Model.extension.Contains("xls"))
+                                                                                                                                                                {
+                                                                                                                                                                    <div class="panel panel-default">
+                                                                                                                                                                        <div class="panel-heading">Comparación de Carga de Archivos <b>Excel</b> (Última y Reciente subida)</div>
+                                                                                                                                                                        <div class="panel-body">
+                                                                                                                                                                            <table class="table table-bordered">
+                                                                                                                                                                                <thead>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        <th></th>
+                                                                                                                                                                                        <th>Fila</th>
+                                                                                                                                                                                        <th>Columna</th>
+                                                                                                                                                                                        <th>Tamaño</th>
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                </thead>
+                                                                                                                                                                                <tbody>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        <th>Última Subida</th>
+                                                                                                                                                                                        <th>@ultimometadata.celda</th>
+                                                                                                                                                                                        <th>@ultimometadata.columna</th>
+                                                                                                                                                                                        <th>@ultimometadata.tamanio</th>
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        <th>Subida Actual</th>
+                                                                                                                                                                                        <th>@metadatanuevo.celda</th>
+                                                                                                                                                                                        <th>@metadatanuevo.columna</th>
+                                                                                                                                                                                        <th>@metadatanuevo.tamanio</th>
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        @{ celda = (-ultimometadata.celda + metadatanuevo.celda).ToString(); }
+                                                                                                                                                                                        @{ columna = (-ultimometadata.columna + metadatanuevo.columna).ToString(); }
+
+                                                                                                                                                                                        @{ string[] ultimo = ultimometadata.tamanio.Split(' '); }
+                                                                                                                                                                                        @{ string[] nuevo = metadatanuevo.tamanio.Split(' '); }
+
+                                                                                                                                                                                        @{ taman = (-Convert.ToDouble(ultimo[0]) + Convert.ToDouble(nuevo[0])).ToString(); }
+
+                                                                                                                                                                                        <th>Comparación</th>
+
+                                                                                                                                                                                        @if (Convert.ToInt32(celda) < 0)
+                                                                                                                                                                                        {
+                                                                                                                                                                                            <th class="alert-danger"><b class="text-black">-@celda.ToString()</b></th>
+                                                                                                                                                                                        }
+                                                                                                                                                                                        else
+                                                                                                                                                                                        {
+                                                                                                                                                                                            <th class="alert-success"><b class="text-black">+@celda.ToString()</b></th>
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        @if (Convert.ToInt32(columna) < 0)
+                                                                                                                                                                                        {
+                                                                                                                                                                                            <th class="alert-danger"><b class="text-black">-@columna.ToString()</b></th>
+                                                                                                                                                                                        }
+                                                                                                                                                                                        else
+                                                                                                                                                                                        {
+                                                                                                                                                                                            <th class="alert-success"><b class="text-black">+@columna.ToString()</b></th>
+                                                                                                                                                                                        }
+
+                                                                                                                                                                                        @if (Convert.ToDouble(taman) < 0)
+                                                                                                                                                                                        {
+                                                                                                                                                                                            <th class="alert-danger"><b class="text-black">-@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                                                                                                                                        }
+                                                                                                                                                                                        else
+                                                                                                                                                                                        {
+                                                                                                                                                                                            <th class="alert-success"><b class="text-black">+@Math.Round(Convert.ToDouble(taman), 3).ToString() KB</b></th>
+                                                                                                                                                                                        }
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                </tbody>
+                                                                                                                                                                            </table>
+                                                                                                                                                                        </div>
+                                                                                                                                                                    </div>
+                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                }
+                                                                                                                                                                                            }
+                                                                                                                                                                                            catch (Exception e)
+                                                                                                                                                                                            {
+
+                                                                                                                                                                                            }
+        <br />
+        <div class="text-right">
+            <a href="~/User/Documento" class="btn btn-primary">Aceptar</a>
+        </div>
+        </div></div>

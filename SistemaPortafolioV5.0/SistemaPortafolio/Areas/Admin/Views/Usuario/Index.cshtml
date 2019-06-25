@@ -1,0 +1,109 @@
+﻿@model List<SistemaPortafolio.Models.Usuario>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/Usuario/AgregarEditar/">Nuevo Usuario</a>
+        </div><br /><br />
+        <div id="ListarGrilla" class="panel-group"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function ()
+    {
+        $("#ListarGrilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+                    //columna1
+                    { leyenda: "ID", columna: "usuario_id", ordenable: true, class: "info" },
+                    //columna2
+                    { leyenda: "PERSONA", columna: "nombrepersona", ordenable: true, class: "info" },
+                    //columna3
+                    { leyenda: "TIPO", columna: "nombretipousuario", ordenable: true, class: "info" },
+                    //columna4
+                    { leyenda: "USUARIO", style: 'width:200px;', columna: 'nombre', class: "info", ordenable: true, filtro: true },
+                    //columna5
+                    { leyenda: "ESTADO", columna: "estado", ordenable: true, class: "info" },
+
+                    //columnas para los botones
+                    { style: 'Width: 40px;', class: "info" },//visualizar
+                { style: 'Width: 40px;', class: "info" },//Modificar
+                { style: 'Width: 40px;', class: "info" },//Elimianr
+                ],
+
+                modelo: [
+                    //atributo 1 semestre_id
+                    { propiedad: "usuario_id" },
+                      //atributo 1 semestre_id
+                    { propiedad: "nombrepersona" },
+                      //atributo 1 semestre_id
+                    { propiedad: "nombretipousuario" },
+
+                    //atributo 2  nombre
+                    {
+                        propiedad: "nombre", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Usuario/AgregarEditar/")'
+                            + obj.usuario_id, contenido: valor
+                            });
+                        }
+                    },
+                    //atributo 5 fechafin
+                    { propiedad: "estado" },
+
+                    //los botones
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Usuario/Ver/")'
+                            + obj.usuario_id, contenido: "Detalle",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Usuario/AgregarEditar/")'
+                            + obj.usuario_id, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Usuario/Eliminar/")'
+                            + obj.usuario_id, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/Usuario/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'usuario_id',
+                columna_orden: "DESC"
+            });
+    })
+</script>

@@ -1,0 +1,72 @@
+﻿
+@model List<SistemaPortafolio.Models.Persona>
+@{
+
+}
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="Grilla" class="panel-group"></div>
+        </div>
+    </div>
+
+        <script>
+            $(document).ready(function () {
+                $("#Grilla").anexGrid(
+                    {
+                        class: 'table table-hover',
+                        columnas: [
+
+                            { leyenda: "ID", columna: "id", class:"info" },
+
+                            { leyenda: "CÓDIGO", columna: "codigo", filtro: true, class: "info" },
+
+                            { leyenda: "NOMBRE Y APELLIDO", columna: "nombre", ordenable: true, filtro: true, class: "info" },
+
+                            { leyenda: "DNI", columna: "dni", class: "info" },
+
+                            { leyenda: "ESTADO", columna: "estado", ordenable: true, class: "info" },
+
+                            { style: "width: 40px;", class: "info" },//boton curso
+                        ],
+
+                        modelo: [
+
+                            { propiedad: "id" },
+                            { propiedad: "codigo" },
+                            {
+                                propiedad: "nombre", formato: function (tr, obj, valor) {
+                                    return anexGrid_link({
+                                        href: '@Url.Content("~/Admin/Alumno/Curso/")'
+                                    + obj.id, contenido: valor
+                                    });
+                                }
+                            },
+
+                            { propiedad: "dni" },
+
+                            { propiedad: "estado" },
+
+                            {
+                                formato: function (tr, obj, valor) {
+                                    return anexGrid_link({
+                                        href: '@Url.Content("~/Admin/Alumno/Curso/")'
+                                    + obj.id, contenido: "Cursos",
+                                    contenido: '<i data-toggle="tooltip" data-placement="top" title="Cursos" class="glyphicon glyphicon-book" aria-hidden="true"></i>',
+                                    class: 'btn btn-default btn-sm'
+                                    });
+                                }
+                            }
+                        ],
+
+                        url: '@Url.Content("~/Admin/Alumno/CargarGrilla/")',
+                        filtrable: true,
+                        paginable: true, //para mostrar la paginación
+                        limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                        columna: 'id',
+                        columna_orden: "DESC"
+                    });
+            })
+        </script>

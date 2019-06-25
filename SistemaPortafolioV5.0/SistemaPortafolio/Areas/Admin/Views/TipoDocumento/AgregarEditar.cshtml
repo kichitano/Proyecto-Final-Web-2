@@ -1,0 +1,59 @@
+﻿@model SistemaPortafolio.Models.TipoDocumento
+@{
+    ViewBag.Title = (Model.tipodocumento_id > 0 ? Model.nombre : "Nuevo Registro");
+    List<SistemaPortafolio.Models.TipoPersona> tipopersona = ViewBag.tipopersona;
+}
+<!---->
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>AGREGAR/EDITAR</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/TipoDocumento/Index">Tipo de Documento</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+
+        @using (Html.BeginForm("Guardar", "TipoDocumento", FormMethod.Post, new { id = "frm-categoria" }))
+        {
+            @Html.HiddenFor(x => x.tipodocumento_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información del Tipo de Documento</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.tipodocumento_id, new { @class = "form-control", @disabled = true })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Persona:</label>
+                        <select name="tipopersona_id" class="form-control">
+                            @foreach (var p in tipopersona)
+                            {
+                                <option @(Model.tipopersona_id.Equals(p.tipopersona_id) ? "selected" : "") value="@p.tipopersona_id" class="form-control">@p.nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Extensión del Archivo:</label>
+                        @Html.TextBoxFor(x => x.extension, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.extension, null, new { @class = "label label-danger" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="~/Admin/TipoDocumento" class="btn btn-danger">Cancelar</a>
+            </div>
+        }
+        </div></div>

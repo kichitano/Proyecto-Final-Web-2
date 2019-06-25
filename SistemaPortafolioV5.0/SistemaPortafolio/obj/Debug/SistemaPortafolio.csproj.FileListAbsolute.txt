@@ -1,0 +1,134 @@
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\ApplicationInsights.config
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\csc.exe
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\vbc.exe
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\VBCSCompiler.exe
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\SistemaPortafolio.dll.config
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\SistemaPortafolio.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\SistemaPortafolio.pdb
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.SqlServer.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\itextsharp.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\itextsharp.xmlworker.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.Web.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.ApplicationInsights.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\RazorEngine.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Helpers.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Mvc.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Razor.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Deployment.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Razor.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Wired.Razor.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Wired.RazorPdf.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.SqlServer.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\itextsharp.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.Web.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.ApplicationInsights.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\RazorEngine.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Razor.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Deployment.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Razor.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Helpers.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Mvc.xml
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Razor.resources.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Webpages.resources.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Webpages.Deployment.resources.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Webpages.Razor.resources.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Helpers.resources.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Mvc.resources.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csprojAssemblyReference.cache
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csproj.CoreCompileInputs.cache
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csproj.CopyComplete
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.dll
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.pdb
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.Migrations.InitialDb.resources
+C:\Users\workholic\Documents\web2\SistemaPortafolio - copia\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csproj.GenerateResource.cache
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csprojResolveAssemblyReference.cache
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.Migrations.InitialDb.resources
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csproj.GenerateResource.cache
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csproj.CoreCompileInputs.cache
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\ApplicationInsights.config
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\csc.exe
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\vbc.exe
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\VBCSCompiler.exe
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\SistemaPortafolio.dll.config
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\SistemaPortafolio.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\SistemaPortafolio.pdb
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.SqlServer.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\itextsharp.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\itextsharp.xmlworker.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.Web.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\RazorEngine.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Helpers.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Mvc.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Razor.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Razor.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Wired.Razor.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Wired.RazorPdf.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\EntityFramework.SqlServer.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\itextsharp.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.Web.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\RazorEngine.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Razor.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Webpages.Razor.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Helpers.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\System.Web.Mvc.xml
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Razor.resources.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Webpages.resources.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Webpages.Deployment.resources.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Webpages.Razor.resources.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.csproj.CopyComplete
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.dll
+C:\Users\Corei7\Desktop\Proyecto Final Web 2\SistemaPortafolioV5.0\SistemaPortafolio\obj\Debug\SistemaPortafolio.pdb

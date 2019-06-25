@@ -1,0 +1,117 @@
+﻿@model List<SistemaPortafolio.Models.Persona>
+@{
+
+}
+
+
+<br />
+
+<div class="panel panel-default">
+   
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/Persona/AgregarEditar/">Nueva Persona</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $("#Grilla").anexGrid({
+                class: 'table table-hover',
+              //  class: 'table table-hover',
+                columnas: [
+                    //columna 1: id
+                    {
+                        leyenda: 'ID', columna: "persona_id",  style: 'width:50px;', ordenable: true, class:"info"
+                    },
+                    //columna 2: id
+                    {
+                        leyenda: 'PERSONA', columna: 'personatipo',  ordenable: true, class: "info"
+                    },
+                    //columna 3: id
+                    {
+                        leyenda: 'DNI', columna: 'dni', ordenable: true,  class: "info"
+                    },
+                    //columna 4
+                    {
+                        leyenda: 'CÓDIGO', columna: 'codigo',  ordenable: true, filtro: true, class: "info"
+                    },
+                     //columna 5: id
+                    {
+                        leyenda: 'NOMBRE', columna: 'nombre', ordenable: true, class: "info"
+                    },
+                    //columna 6: id
+                    {
+                        leyenda: 'APELLIDO', columna: 'apellido',  ordenable: true,  class: "info"
+                    },
+                      //columna 6: id
+                    {
+                        leyenda: 'ESTADO', columna: 'estado', ordenable: true, class: "info"
+                    },
+                    //agregar las columnas de los datos
+                    { style: 'Width: 40px;',  class:"info"},//visualizar
+                    { style: 'Width: 40px;', class:"info" },//Modificar
+                    { style: 'Width: 40px;', class:"info" },//Elimianr
+                ],
+                modelo: [
+                    //campo 1: id
+                    { propiedad: 'persona_id' },
+                    { propiedad: 'personatipo' },
+
+                    { propiedad: 'dni' },
+                    { propiedad: 'codigo' },
+                    { propiedad: 'nombre' },
+                    { propiedad: 'apellido' },
+                    { propiedad: 'estado' },
+
+                //los botones
+                //boton visualizar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/Persona/Ver/")' + obj.persona_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+
+                        });
+                    },
+                },
+                //boton modificar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/Persona/AgregarEditar/")' + obj.persona_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                        });
+                    },
+                },
+                //boton eliminar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/Persona/Eliminar/")' + obj.persona_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                            attr: [
+                                'onclick="return confirm(\'¿Esta seguro de eliminar el registro?\')"'
+                            ]
+                        });
+                    },
+                }
+
+                ],
+                url: '@Url.Content("~/Admin/Persona/CargarGrilla/")',
+                paginable: true,
+                filtrable: true,
+                limite: [10, 20, 50, 100],
+                columna: 'persona_id',
+                columna_orden: "DESC"
+            });
+
+        }
+        )
+</script>
+

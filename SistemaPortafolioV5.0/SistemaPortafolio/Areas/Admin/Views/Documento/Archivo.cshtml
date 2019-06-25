@@ -1,0 +1,102 @@
+﻿@model SistemaPortafolio.Models.Documento
+@{
+    ViewBag.Title = "Documento";
+    SistemaPortafolio.Models.TipoDocumento tdocumento = ViewBag.tdocumento;
+    SistemaPortafolio.Models.Persona persona = ViewBag.persona;
+    SistemaPortafolio.Models.Unidad unidad = ViewBag.unidad;
+    SistemaPortafolio.Models.Curso curso = ViewBag.curso;
+
+}
+
+<div class="page">
+    <h1 class="page-header">
+        Agregar Documento
+    </h1>
+
+</div>
+
+
+@using (Html.BeginForm("GuardarDocumento", "Documento", FormMethod.Post, new { id = "frm-proyecto", @form = "form" }))
+{
+    @Html.HiddenFor(x => x.proyecto_id)
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Información del Proyecto</div>
+        <div class="panel-body">
+
+
+       
+            <div class="form-group col-xs-4">
+                <label>Curso:</label>
+                <select name="tipodocumento_id" id="tipodocumento_id" class="form-control">
+                    @foreach (var p in tdocumento)
+                    {
+                        <option @(Model.tipodocumento_id == (p.tipodocumento_id) ? "selected" : "") value="@p.tipodocumento_id" class="form-control ">@p.nombre</option>
+                        if (p.tipodocumento_id == "")
+                        {
+                            p.tipodocumento_id = "null";
+                        }
+
+                    }
+                </select>
+            </div>
+
+
+
+            <div class="form-group col-xs-4">
+                <label>Curso:</label>
+                <select name="id_unidad" id="curso_cod" class="form-control">
+                    @foreach (var p in unidad)
+                    {
+                        <option @(Model.id_unidad == (p.id_unidad) ? "selected" : "") value="@p.id_unidad" class="form-control ">@p.nombre</option>
+                        if (p.id_unidad == "")
+                        {
+                            p.id_unidad = "null";
+                        }
+
+                    }
+                </select>
+            </div>
+
+
+
+            <div class="form-group col-xs-4">
+                <label>Curso:</label>
+                <select name="curso_cod" id="curso_cod" class="form-control">
+                    @foreach (var p in curso)
+                    {
+                        <option @(Model.curso_cod == (p.curso_cod) ? "selected" : "") value="@p.curso_cod" class="form-control ">@p.nombre</option>
+                        if (p.curso_cod == "")
+                        {
+                            p.curso_cod = "null";
+                        }
+
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Archivo:</label>
+                <input type="file" name="docu" />
+                  </div>
+
+            <div class="form-group">
+                <label>Descripcion del documento:</label>
+                @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+
+            </div>
+
+
+
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Participantes</button>
+            <a href="~/FrontEnd/Home/Index" class="btn btn-danger btn-lg btn-block">Cancelar</a>
+        </div>
+    </div>
+
+}
+
+
+

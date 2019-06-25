@@ -1,0 +1,111 @@
+﻿@model List<SistemaPortafolio.Models.TipoUsuario>
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/TipoUsuario/AgregarEditar/">Nuevo Tipo de Usuario</a>
+        </div><br /><br />
+        <div id="ListarGrilla" class="panel-group"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#ListarGrilla").anexGrid({
+            class: 'table table-hover',
+            columnas: [
+                //columna 1: id
+                {
+                    leyenda: 'ID', columna: "tipousuario_id", class: "info", style: 'width:50px;', ordenable: true
+                },
+                //columna 2: id
+                {
+                    leyenda: 'NOMBRE', columna: 'nombre', class: "info", ordenable: true, filtro: true
+                },
+                //columna 3: id
+                {
+                    leyenda: 'DESCRIPCIÓN', columna: 'descripcion', class: "info", ordenable: true
+                },
+                //columna 4: id
+                {
+                    leyenda: 'ESTADO', columna: 'estado', class: "info", ordenable: true
+                },
+
+
+                //agregar las columnas de los datos
+                { style: 'Width: 40px;' },//visualizar
+                { style: 'Width: 40px;' },//Modificar
+                { style: 'Width: 40px;' },//Elimianr
+            ],
+            modelo: [
+                //campo 1: id
+                { propiedad: 'tipousuario_id' },
+                //campo2: Nombre del cargo
+                {
+                    propiedad: 'nombre', formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/TipoUsuario/AgregarEditar/")' + obj.tipousuario_id,
+                            contenido: valor
+                        });
+                    }
+                },
+                //campo3:
+                { propiedad: 'descripcion' },
+
+                { propiedad: 'estado' },
+
+
+            //los botones
+            //boton visualizar
+            {
+                formato: function (tr, obj, valor) {
+                    return anexGrid_link({
+                        href: '@Url.Content("~/Admin/TipoUsuario/Ver/")' + obj.tipousuario_id,
+                        contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                        class: 'btn btn-success btn-sm'
+
+                    });
+                },
+            },
+            //boton modificar
+            {
+                formato: function (tr, obj, valor) {
+                    return anexGrid_link({
+                        href: '@Url.Content("~/Admin/TipoUsuario/AgregarEditar/")' + obj.tipousuario_id,
+                        contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                        class: 'btn btn-info btn-sm'
+                    });
+                },
+            },
+            //boton eliminar
+            {
+                formato: function (tr, obj, valor) {
+                    return anexGrid_link({
+                        href: '@Url.Content("~/Admin/TipoUsuario/Eliminar/")' + obj.tipousuario_id,
+                        contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                        class: 'btn btn-danger btn-sm',
+                        attr: [
+                            'onclick="return confirm(\'¿Esta seguro de eliminar el registro?\')"'
+                        ]
+                    });
+                },
+            }
+
+            ],
+            url: '@Url.Content("~/Admin/TipoUsuario/CargarGrilla/")',
+            paginable: true,
+            filtrable: true,
+            limite: [10, 20, 50, 100],
+            columna: 'tipousuario_id',
+            columna_orden: "DESC"
+        });
+
+    }
+    )
+</script>
+

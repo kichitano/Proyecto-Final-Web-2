@@ -1,0 +1,102 @@
+﻿@model SistemaPortafolio.Models.Persona
+@{
+    ViewBag.Title = (Model.persona_id > 0 ? Model.nombre : "Nuevo Registro");
+    List<SistemaPortafolio.Models.TipoPersona> tipopersona = ViewBag.tipo;
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+}
+
+<h2>Agregar / Editar</h2>
+<ol class="breadcrumb">
+    <li><a href="~/Admin/Persona/Index">Persona</a></li>
+    <li class="active">@Model.persona_id</li>
+</ol>
+
+@using (Html.BeginForm("Guardar", "Persona", FormMethod.Post, new { id = "frm-persona" }))
+{
+    @Html.HiddenFor(x => x.persona_id)
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Información de la Persona</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label>ID:</label>
+                @Html.TextBoxFor(x => x.persona_id, new { @class = "form-control", @disabled = true })
+
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Persona:</label>
+                <select name="tipopersona_id" id="tipopersona_id" class="form-control">
+                    @foreach (var m in tipopersona)
+                    {
+                        <option @(Model.tipopersona_id == m.tipopersona_id ? "Selected" : "") value="@m.tipopersona_id">@m.nombre</option>
+                    }
+                </select>
+            </div>
+
+            @*CAMPOS PARA AUTOGENERAR*@
+            
+            <input type="hidden" value="@(Model.dni + "_" + Model.nombre + " " + Model.apellido)" id="SiDocente" name="SiDocente"/>
+            
+            @foreach(var s in semestre)
+            {
+                if((s.fechainicio <= DateTime.Today) && (s.fechafin >= DateTime.Today))
+                {
+                    <input type="hidden" value="@s.nombre" id="SiSemestre" name="SiSemestre"/>
+                }
+            }
+
+            @*FIN CAMPOS PARA AUTOGENERAR*@
+
+            <div class="form-group">
+                <label>DNI:</label>
+                @Html.TextBoxFor(x => x.dni, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.dni, null, new { @class = "label label-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Código:</label>
+                @Html.TextBoxFor(x => x.codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.codigo, null, new { @class = "label label-danger" })
+            </div>
+            <div class="form-group">
+                <label>Nombre:</label>
+                @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+            </div>
+                
+            <div class="form-group">
+                <label>Apellido:</label>
+                @Html.TextBoxFor(x => x.apellido, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.apellido, null, new { @class = "label label-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                @Html.TextBoxFor(x => x.email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.email, null, new { @class = "label label-danger" })
+
+            </div>
+
+            <div class="form-group">
+                <label>Celular:</label>
+                @Html.TextBoxFor(x => x.celular, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.celular, null, new { @class = "label label-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Estado Criterio")
+                <select name="estado" class="form-control">
+                    <option @(Model.estado == "Activo" ? "selected" : "" ) value="Activo">Activo</option>
+                    <option @(Model.estado == "Inactivo" ? "selected" : "" ) value="Inactivo">Inactivo</option>
+                </select>
+                @*@Html.ValidationMessageFor(x => x.estado_crit, null, new { @class = "label label-danger" })*@
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="~/Admin/Persona" class="btn btn-danger">Cancelar</a>
+    </div>
+}

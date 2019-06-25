@@ -1,0 +1,59 @@
+﻿@model SistemaPortafolio.Models.Usuario
+@{
+
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="page">
+            <h1 class="page-header">
+                MI PERFIL
+            </h1>
+
+        </div>
+
+        @using (Html.BeginForm("Actualizar", "Perfil", FormMethod.Post))
+        {
+
+            <div class="tab-content">
+                <div>
+                    <div role="tabpanel" class="active">
+                        <div class="form-group">
+                            <label>Usuario:</label>
+                            @Html.HiddenFor(x => x.usuario_id)
+                            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                        </div><br />
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="text" class="form-control" name="clave" placeholder="¡Existe una contraseña! Sino deseas cambiarlo, deja este espacio en blanco." /><br />
+                            <label><b class="label label-danger">NOTA: ¡Si cambia su contraseña, deberá inciar sesión de nuevo!</b></label>
+                        </div><br />
+                        <div class="form-group">
+                            <label>Mi Avatar:</label>
+                            @if (Model.avatar.Equals("user_default.png"))
+                            {
+                                <img class="img-circle" src="~/Assets/img/user_default.png" height="80" width="80" />
+                            }
+                            else
+                            {
+                                <img class="img-circle" src="~/Server/Images/@Model.avatar" height="80" width="80" />
+                            }
+                        </div><br />
+                        <div class="form-group">
+                            <label>Cambiar Avatar:</label>
+                            <input type="file" name="Foto" />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <br />
+            <div class="text-right">
+                <button data-ajax="true" class="btn btn-primary">Guardar</button>
+                <a href="~/Admin/Home/Index" class="btn btn-danger">Cancelar</a>
+
+            </div>
+        }
+        </div></div>

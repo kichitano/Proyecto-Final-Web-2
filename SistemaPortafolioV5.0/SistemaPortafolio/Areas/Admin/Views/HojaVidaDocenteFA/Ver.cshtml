@@ -1,0 +1,26 @@
+﻿@model  SistemaPortafolio.Models.HojaVidaDocenteFA
+@{
+    ViewBag.Title = "HojaVidaDocenteFA";
+}
+<h2>Ver</h2>
+<ol class="breadcrumb">
+    <li><a href="~/Admin/HojaVidaDocenteFA/Index">HojaVidaDocenteFA</a></li>
+    <li class="active">@Model.institucion</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">Información Detallada de la HojaVidaDocenteFA</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd>@Model.hojavidadocentefa_id</dd>
+            <dt>ID</dt>
+            <dd>@Model.hojavida_id</dd>
+            <dt>institucion</dt>
+            <dd>@Model.institucion</dd>
+            <dt>Titulo</dt>
+            <dd>@Model.titulo</dd>
+        </dl>
+
+    </div>
+</div>
+

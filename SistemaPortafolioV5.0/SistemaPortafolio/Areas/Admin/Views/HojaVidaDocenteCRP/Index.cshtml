@@ -1,0 +1,112 @@
+﻿@model List<SistemaPortafolio.Models.HojaVidaDocenteCRP>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+<div class="text-right">
+    <a class="btn btn-primary" href="~/Admin/HojaVidaDocenteCRP/AgregarEditar/">Nueva HojaVidaDocenteCRP</a>
+</div>
+<br />
+<div id="Grilla"></div>
+
+<script>
+        $(document).ready(function () {
+            $("#Grilla").anexGrid({
+              //  class: 'table table-hover',
+                columnas: [
+                    //columna 1: id
+                    {
+                        leyenda: 'ID', columna: "hojavidadocentecrp_id", class: 'danger', style: 'width:50px;', ordenable: true
+                    },
+                    //columna 2: id
+                    {
+                        leyenda: 'hojavida_id', columna: 'hojavida_id', class: 'danger', ordenable: true, filtro: true
+                    },
+                    //columna 3: id
+                    {
+                        leyenda: 'certificacion', columna: 'certificacion', class: 'danger', ordenable: true, filtro: true
+                    },
+                    //columna 4
+                    {
+                        leyenda: 'institucion', columna: 'institucion', class: 'danger', ordenable: true, filtro: true
+                    },
+                     //columna 5: id
+                    {
+                        leyenda: 'año', columna: 'año', class: 'danger', ordenable: true
+                    },
+                  
+                    //agregar las columnas de los datos
+                    { style: 'Width: 40px;', class: 'danger' },//visualizar
+                    { style: 'Width: 40px;', class: 'danger' },//Modificar
+                    { style: 'Width: 40px;', class: 'danger' },//Elimianr
+                ],
+                modelo: [
+                    //campo 1: id
+                    { propiedad: 'hojavidadocentecrp_id' },
+                    //campo2: Nombre del cargo
+
+                    {
+                        propiedad: 'hojavida_id', formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/HojaVidaDocenteCRP/ver/")' + obj.hojavidadocentecrp_id,
+                                contenido: valor
+                            });
+                        }
+                    },
+
+                    { propiedad: 'certificacion' },
+                    { propiedad: 'institucion' },
+                    { propiedad: 'año' },
+                    
+
+                //los botones
+                //boton visualizar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/HojaVidaDocenteCRP/ver/")' + obj.hojavidadocentecrp_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+
+                        });
+                    },
+                },
+                //boton modificar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/HojaVidaDocenteCRP/AgregarEditar/")' + obj.hojavidadocentecrp_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                        });
+                    },
+                },
+                //boton eliminar
+                {
+                    formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '@Url.Content("~/Admin/HojaVidaDocenteCRP/Eliminar/")' + obj.hojavidadocentecrp_id,
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-warning btn-sm',
+                            attr: [
+                                'onclick="return confirm(\'¿Esta seguro de eliminar el registro?\')"'
+                            ]
+                        });
+                    },
+                }
+
+                ],
+                url: '@Url.Content("~/Admin/HojaVidaDocenteCRP/CargarGrilla/")',
+                paginable: true,
+                filtrable: true,
+                limite: [10, 20, 50, 100],
+                columna: 'hojavidadocentecrp_id',
+                columna_orden: "DESC"
+            });
+
+        }
+        )
+</script>
+

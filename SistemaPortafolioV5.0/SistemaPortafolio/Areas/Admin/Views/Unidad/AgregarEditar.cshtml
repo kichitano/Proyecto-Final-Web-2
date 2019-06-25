@@ -1,0 +1,71 @@
+﻿@model SistemaPortafolio.Models.Unidad
+@{
+    ViewBag.Title = (Model.id_unidad > 0 ? Model.descripcion : "Nuevo Registro");
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>AGREGAR/EDITAR</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Unidad/Index">Unidad</a></li>
+            <li class="active">@Model.descripcion</li>
+        </ol>
+
+        @using (Html.BeginForm("Guardar", "Unidad", FormMethod.Post, new { id = "frm-categoria" }))
+        {
+            @Html.HiddenFor(x => x.id_unidad)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información de la Unidad</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.id_unidad, new { @class = "form-control", @disabled = true })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Semestre:</label>
+                        <select name="id_semestre" class="form-control">
+                            @foreach (var p in semestre)
+                            {
+                                <option @(Model.id_semestre.Equals(p.semestre_id) ? "selected" : "") value="@p.semestre_id" class="form-control">@p.nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unidad:</label>
+                        @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        @{
+                            List<SelectListItem> estado = new List<SelectListItem>();
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Activo",
+                                Value = "Activo"
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Inactivo",
+                                Value = "Inactivo",
+                            });
+                        }
+                        @Html.DropDownListFor(x => x.estado, estado, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.estado, null, new { @class = "label label-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="~/Admin/Unidad" class="btn btn-danger">Cancelar</a>
+            </div>
+                            }
+        </div></div>

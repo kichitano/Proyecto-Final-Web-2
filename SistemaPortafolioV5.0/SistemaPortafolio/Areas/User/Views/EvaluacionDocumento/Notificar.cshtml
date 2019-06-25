@@ -1,0 +1,57 @@
+﻿@model SistemaPortafolio.Models.Notificacion
+@{
+    SistemaPortafolio.Models.Persona persona_receptor = ViewBag.persona_receptor;
+    SistemaPortafolio.Models.Usuario persona_emisor = new SistemaPortafolio.Models.Usuario().Obtener(SistemaPortafolio.Models.SessionHelper.GetUser());
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm("Notificacion", "EvaluacionDocumento", FormMethod.Post, new { id = "frm-curso" }))
+        {
+            @Html.HiddenFor(x => x.notificacion_id)
+            <div class="panel panel-default">
+                <div class="panel-heading">Notificación</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Para:</label>
+                        <input disabled class="form-control" value="@persona_receptor.nombre @persona_receptor.apellido" />
+                        <input type="hidden" value="@persona_receptor.persona_id" name="persona_receptor" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>De:</label>
+                        <input disabled class="form-control" value="@persona_emisor.Persona.nombre @persona_emisor.Persona.apellido" />
+                        <input type="hidden" value="@persona_emisor.Persona.persona_id" name="persona_emisor" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Título de la Notificación:</label>
+                        @Html.TextBoxFor(x => x.titulo, new { @class = "form-control", @maxlength = "26" })
+                        @Html.ValidationMessageFor(x => x.titulo, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asunto de la Notificación:</label>
+                        @Html.TextBoxFor(x => x.asunto, new { @class = "form-control", @maxlength = "35" })
+                        @Html.ValidationMessageFor(x => x.asunto, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mensaje de la Notificación:</label>
+                        @Html.TextAreaFor(x => x.mensaje, new { @class = "form-control", @style = "resize: none;" })
+                        @Html.ValidationMessageFor(x => x.mensaje, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <input type="text" value="No Leido" name="estado" disabled class="form-control" />
+                        <input type="hidden" value="No Leido" name="estado" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Enviar Notificación</button>
+                <a href="~/User/EvaluacionDocumento/" class="btn btn-danger">Cancelar</a>
+            </div>
+        }
+        </div></div>

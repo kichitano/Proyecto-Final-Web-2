@@ -1,0 +1,126 @@
+﻿
+
+@model List<SistemaPortafolio.Models.PlanEstudio>
+@{
+    ViewBag.Title = "Index";
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+    var cont = 0;
+}
+
+<br />
+
+<div class="panel panel-default">
+    
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/PlanEstudio/AgregarEditar/">Nuevo Plan de Estudio</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "ID", columna: "plan_id", ordenable: true, class: "info" },
+
+                    {
+                        leyenda: 'SEMESTRE', style: 'width:200px;', columna: 'nombre', class: "info", filtro: function () {
+                            return anexGrid_select({
+                                data: [
+                                    { valor: '', contenido: 'Todo' },
+                                    @foreach(var s in semestre)
+                                    {
+                                        <text>
+                                            { valor: '@s.semestre_id', contenido: '@s.nombre' },
+                                        </text>
+                                        cont++;
+                                    }
+                                ]
+                            });
+                        }
+                    },
+
+                    { leyenda: "PLAN DE ESTUDIO", columna: "nombreplan", ordenable: true, class:"info" },
+
+                    { style: "width: 40px;", class: "info" },//boton curso
+                        { style: 'Width: 40px;', class: "info" },//visualizar
+                { style: 'Width: 40px;', class: "info" },//Modificar
+                { style: 'Width: 40px;', class: "info" },//Elimianr
+                ],
+
+                modelo: [
+
+                    { propiedad: "plan_id" },
+                    { propiedad: "nombre" },
+                    {
+                        propiedad: "nombreplan", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/PlanEstudio/AgregarEditar/")'
+                            + obj.plan_id, contenido: valor
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Curso/Index/")'
+                            + obj.plan_id, contenido: "Cursos",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Cursos" class="glyphicon glyphicon-book" aria-hidden="true"></i>',
+                            class: 'btn btn-default btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/PlanEstudio/Ver/")'
+                            + obj.plan_id, contenido: "Detalle",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/PlanEstudio/AgregarEditar/")'
+                            + obj.plan_id, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/PlanEstudio/Eliminar/")'
+                            + obj.plan_id, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/PlanEstudio/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'plan_id',
+                columna_orden: "DESC"
+            });
+    })
+</script>

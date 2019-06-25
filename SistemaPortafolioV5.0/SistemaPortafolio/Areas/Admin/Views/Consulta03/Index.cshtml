@@ -1,0 +1,75 @@
+﻿
+@{
+    List<SistemaPortafolio.Models.Ciclo> ciclo = ViewBag.ciclo;
+    List<SistemaPortafolio.Models.PlanEstudio> plan_estudio = ViewBag.plan_estudio;
+    SistemaPortafolio.Models.Persona persona = ViewBag.persona;
+}
+
+<br />
+<div class="panel panel-default">
+<div class="panel-body">
+    <div>
+        <h2>CONSULTA: Cantidad de Registros de la Hoja de Vida de Docentes</h2>
+    </div><br /><br />
+
+    @using (Html.BeginForm("Index", "Consulta03", FormMethod.Post, new { criterio = "frm-buscar" }))
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">Criterios de la Consulta</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>Buscar Docente:</label>
+                    <input type="text" name="codigopersona" class="form-control" placeholder="Buscar por DNI o Código" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Generar Consulta" />
+                </div>
+            </div>
+        </div>
+    }
+    <br /><br />
+
+    @if(persona != null)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">Docente:</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>@persona.nombre @persona.apellido</label>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+    }
+    
+    <div id="Grilla" class="panel-group"></div>
+</div>
+    </div>
+<script>
+    $(document).ready(function () {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "DESCRIPCIÓN", columna: "descripcion", class: "info", ordenable: true },
+                    { leyenda: "CANTIDAD", columna: "cantidad", class: "info", ordenable: true }
+
+                ],
+
+                modelo: [
+
+                    { propiedad: "descripcion" },
+                    { propiedad: "cantidad" }
+                    
+                ],
+
+                url: '@Url.Content("~/Admin/Consulta03/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'descripcion',
+                columna_orden: "DESC"
+            });
+    })
+</script>

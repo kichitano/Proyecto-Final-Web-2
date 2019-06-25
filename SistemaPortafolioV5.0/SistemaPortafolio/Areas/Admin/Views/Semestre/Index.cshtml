@@ -1,0 +1,118 @@
+﻿
+@model List<SistemaPortafolio.Models.Semestre>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+
+<div class="panel panel-default">
+    
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/Semestre/AgregarEditar/">Nuevo Semestre</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "ID", columna: "semestre_id", ordenable: true, class: "info" },
+
+                    { leyenda: 'SEMESTRE', style: 'width:200px;', columna: 'nombre', class: "info", ordenable: true, filtro: true },
+
+                    { leyenda: "AÑO", columna: "anio", class: "info" },
+                     { leyenda: "FECHA DE INICIO", columna: "fechainicio", class: "info" },
+                      { leyenda: "FECHA FIN", columna: "fechafin", class: "info" },
+                           { leyenda: "ESTADO", columna: "estado", class: "info" },
+
+
+                { style: 'Width: 40px;', class: "info" },//visualizar
+                { style: 'Width: 40px;', class: "info" },//Modificar
+                { style: 'Width: 40px;', class: "info" },//Elimianr
+                ],
+
+                modelo: [
+
+                    { propiedad: "semestre_id" },
+                    {
+                        propiedad: "nombre", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Semestre/AgregarEditar/")'
+                            + obj.semestre_id, contenido: valor
+                            });
+                        }
+                    },
+
+
+                { propiedad: 'anio' },
+
+                //atributo 4 fecha inicio
+                {
+                    propiedad: 'fechainicio', class: 'center', formato: function (tr, obj, valor)
+                    { return moment(valor).format("DD/MM/YYYY"); }
+                },
+
+                    //atributo 5 fecha fin
+                {
+                    propiedad: 'fechafin', class: 'center', formato: function (tr, obj, valor)
+                    { return moment(valor).format("DD/MM/YYYY"); }
+                },
+                  { propiedad: "estado" },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Semestre/Ver/")'
+                            + obj.semestre_id, contenido: "Detalle",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+
+
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Semestre/AgregarEditar/")'
+                            + obj.semestre_id, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Semestre/Eliminar/")'
+                            + obj.semestre_id, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/Semestre/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'semestre_id',
+                columna_orden: "ASC"
+            });
+    })
+</script>

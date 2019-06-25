@@ -1,0 +1,111 @@
+﻿@model List<SistemaPortafolio.Models.ConfigEntrega>
+@{
+    List<SistemaPortafolio.Models.Unidad> unidad = ViewBag.unidad;
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+}
+<br />
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="text-right">
+            <a href="~/Admin/ConfiguracionEntrega/AgregarEditar/"
+               class="btn btn-primary pull-right">Nueva Configuración</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", style: 'width:50px;', columna: "codigo", ordenable: true, class: "info" },
+
+                    {
+                        leyenda: 'SEMESTRE', style: 'width:200px;', columna: 'semestre', class: "info", filtro: function () {
+                        return anexGrid_select({
+                            data: [
+                                { valor: '', contenido: 'Todo' },
+                                @foreach (var s in semestre)
+                            {
+                                    <text>
+                                        { valor: '@s.semestre_id', contenido: '@s.nombre' },
+                                    </text>
+                                    }
+                                ]
+                    });
+    }
+            },
+
+                    { leyenda: 'UNIDAD', style: 'width:80px;', columna: 'unidad', class: "info", ordenable: true },
+
+                    { leyenda: "DESCRIPCIÓN", style: 'width:200px;', columna: "nombre", class: "info", ordenable: true, filtro: true },
+
+                    { style: "width: 40px;", class: "info" },//boton detalle
+                    { style: "width: 40px;", class: "info" },//boton modificar
+                    { style: "width: 40px;", class: "info" },//boton eliminar
+                ],
+
+                modelo: [
+
+                    { propiedad: "codigo" },
+                    { propiedad: "semestre" },
+                    { propiedad: "unidad" },
+                    {
+                        propiedad: "nombre", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/ConfiguracionEntrega/AgregarEditar/")'
+                            + obj.codigo, contenido: valor
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/ConfiguracionEntrega/Ver/")'
+                            + obj.codigo, contenido: "Detalle",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/ConfiguracionEntrega/AgregarEditar/")'
+                            + obj.codigo, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/ConfiguracionEntrega/Eliminar/")'
+                            + obj.codigo, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/ConfiguracionEntrega/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'codigo',
+                columna_orden: "DESC"
+            });
+    })
+</script>

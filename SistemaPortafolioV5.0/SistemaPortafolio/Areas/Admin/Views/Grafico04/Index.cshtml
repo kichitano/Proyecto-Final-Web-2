@@ -1,0 +1,274 @@
+﻿@model List<SistemaPortafolio.Models.TipoDocumento>
+@{
+    string data_serie = "";
+    string data_categoria = "";
+    string data_valor = "";
+    string data_valores = "";
+    List<SistemaPortafolio.Models.MetadataDocumento> metadata = ViewBag.metadata;
+    List<SistemaPortafolio.Models.TipoDocumento> tipodoc = ViewBag.tipodocumento;
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+    SistemaPortafolio.Models.Persona person = ViewBag.persona;
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">Gráfica de subidas de archivos por docente (por tipo de documento) (Metadata)</div>
+        </div>
+
+        @using (Html.BeginForm("Index", "Grafico04", FormMethod.Post, new { criterio = "frm-buscar" }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Gráficos Estadísticos</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Seleccione el Gráfico:</label>
+                        <select name="grafico" class="form-control">
+                            <option selected value="gbarra">Gráfico de Barras</option>
+                            <option value="garea">Gráfico de Área</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Buscar Docente:</label>
+                        <input type="text" name="codigopersona" class="form-control" placeholder="Buscar por DNI o Código" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Generar Gráfico" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @try
+        {
+            if (person != null)
+            {
+                <label>Docente: <b>@person.nombre @person.apellido</b></label><br />
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+
+
+        <script src="~/Assets/js/highcharts/exporting.js"></script>
+        <script src="~/Assets/js/highcharts/highcharts-3d.js"></script>
+        <script src="~/Assets/js/highcharts/highcharts.js"></script>
+        <script src="~/Assets/js/highcharts/offline-exporting.js"></script>
+
+        <div id="grafico"></div>
+        @if (Session["grafico"] != null)
+        {
+            if (Session["grafico"].Equals("gbarra"))
+            {
+                data_serie = "";
+                data_categoria = "";
+                data_valor = "";
+                data_valores = "";
+
+                foreach (var co in semestre)
+                {
+                    data_categoria = data_categoria + "'" + co.nombre + "',";
+                }
+
+                foreach (var ca in tipodoc)
+                {
+                    data_serie = data_serie + "{name: '" + ca.nombre + "', ";
+                    foreach (var co in semestre)
+                    {
+                        var flag1 = false;
+                        var flag = false;
+                        var cant = 0;
+                        foreach (var i in tipodoc)
+                        {
+                            if (i.tipodocumento_id == ca.tipodocumento_id)
+                            {
+                                foreach (var m in metadata)
+                                {
+                                    if (ca.nombre.Equals(m.TipoDocumento.nombre))
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.semestre_id == co.semestre_id)
+                                        {
+                                            flag1 = true;
+                                            flag = true;
+                                            cant++;
+                                        }
+                                    }
+                                }
+                                if (!flag)
+                                {
+                                    data_valor = " data: [";
+                                    data_valores = data_valores + "0, ";
+                                    flag = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    data_valores = data_valores + cant + ", ";
+                                    break;
+                                }
+                            }
+                        }
+
+                        //if (!flag1)
+                        //{
+                        //    data_valores = data_valores + "0, ";
+                        //    flag1 = false;
+                        //}
+                    }
+
+                    data_valor = data_valor + data_valores + "]";
+                    data_valores = "";
+                    data_serie = data_serie + data_valor + "}, ";
+                }
+
+                <text>
+                    <script>
+                        Highcharts.chart('grafico', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Gráfica de Subidas de Archivos por Docente (por Tipo de Documento) (Metadata)'
+                            },
+                            xAxis: {
+                                categories: [
+                                    @Html.Raw(data_categoria)
+                                ],
+                                crosshair: true
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Cantidad de Subidas'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y:.1f} veces</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [@Html.Raw(data_serie)]
+                        });
+                    </script>
+                </text>
+            }
+            else if (Session["grafico"].Equals("garea"))
+            {
+                data_serie = "";
+                data_categoria = "";
+                data_valor = "";
+                data_valores = "";
+
+                foreach (var co in semestre)
+                {
+                    data_categoria = data_categoria + "'" + co.nombre + "',";
+                }
+
+                foreach (var ca in tipodoc)
+                {
+                    data_serie = data_serie + "{name: '" + ca.nombre + "', ";
+                    foreach (var co in semestre)
+                    {
+                        var flag1 = false;
+                        var flag = false;
+                        var cant = 0;
+                        foreach (var i in tipodoc)
+                        {
+                            if (i.tipodocumento_id == ca.tipodocumento_id)
+                            {
+                                foreach (var m in metadata)
+                                {
+                                    if (ca.nombre.Equals(m.TipoDocumento.nombre))
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.semestre_id == co.semestre_id)
+                                        {
+                                            flag1 = true;
+                                            flag = true;
+                                            cant++;
+                                        }
+                                    }
+                                }
+                                if (!flag)
+                                {
+                                    data_valor = " data: [";
+                                    data_valores = data_valores + "0, ";
+                                    flag = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    data_valores = data_valores + cant + ", ";
+                                    break;
+                                }
+                            }
+                        }
+
+                        //if (!flag1)
+                        //{
+                        //    data_valores = data_valores + "0, ";
+                        //    flag1 = false;
+                        //}
+                    }
+
+                    data_valor = data_valor + data_valores + "]";
+                    data_valores = "";
+                    data_serie = data_serie + data_valor + "}, ";
+                }
+
+                <text>
+                    <script>
+                        Highcharts.chart('grafico', {
+                            chart: {
+                                type: 'area'
+                            },
+                            title: {
+                                text: 'Gráfica de Subidas de Archivos por Docente (por Tipo de Documento) (Metadata)'
+                            },
+                            xAxis: {
+                                categories: [@Html.Raw(data_categoria)],
+                                tickmarkPlacement: 'on',
+                                title: {
+                                    enabled: false
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Cantidad de Subidas'
+                                }
+                            },
+                            tooltip: {
+                                split: true,
+                                valueSuffix: ' veces'
+                            },
+                            plotOptions: {
+                                area: {
+                                    stacking: 'normal',
+                                    lineColor: '#666666',
+                                    lineWidth: 1,
+                                    marker: {
+                                        lineWidth: 1,
+                                        lineColor: '#666666'
+                                    }
+                                }
+                            },
+                            series: [@Html.Raw(data_serie)]
+                        });
+                    </script>
+                </text>
+            }
+        }
+        </div></div>

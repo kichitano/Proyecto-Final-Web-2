@@ -1,0 +1,103 @@
+﻿@model SistemaPortafolio.Models.ConfigEntrega
+@{
+    List<SistemaPortafolio.Models.Unidad> unidad = ViewBag.unidad;
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>AGREGAR/EDITAR</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/ConfiguracionEntrega/Index/">Configuración de Entrega</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+
+        @using (Html.BeginForm("Guardar", "ConfiguracionEntrega", FormMethod.Post, new { id = "frm-curso" }))
+        {
+            @Html.HiddenFor(x => x.configentrega_id)
+            <div class="panel panel-default">
+                <div class="panel-heading">Información de la Configuración de Entrega</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.configentrega_id, new { @class = "form-control", @disabled = true })
+                        @Html.ValidationMessageFor(x => x.configentrega_id, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unidad:</label>
+                        <select name="id_unidad" class="form-control">
+                            @foreach (var u in unidad)
+                            {
+                                <option @(Model.id_unidad.Equals(u.id_unidad) ? "selected" : "") value="@u.id_unidad" class="form-control">@u.descripcion (@u.Semestre.nombre)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre de la Configuración:</label>
+                        @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Inicio de Entrega:</label>
+                        @try
+                {
+                    System.DateTime dt;
+                    dt = Convert.ToDateTime(Model.fecha_inicio);
+
+                    string fecha;
+                    fecha = dt.ToString("yyyy-MM-dd");
+
+                            <input type="date" name="fecha_inicio" value="@fecha" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+                            <input type="date" name="fecha_inicio" class="form-control" />
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha Fin de Entrega:</label>
+                        @try
+                {
+                    System.DateTime dt;
+                    dt = Convert.ToDateTime(Model.fecha_fin);
+
+                    string fecha;
+                    fecha = dt.ToString("yyyy-MM-dd");
+
+                            <input type="date" name="fecha_fin" value="@fecha" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+                            <input type="date" name="fecha_fin" class="form-control" />
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        @{
+                            List<SelectListItem> estado = new List<SelectListItem>();
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Activo",
+                                Value = "Activo"
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Inactivo",
+                                Value = "Inactivo",
+                            });
+                        }
+                        @Html.DropDownListFor(x => x.estado, estado, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="~/Admin/ConfiguracionEntrega/" class="btn btn-danger">Cancelar</a>
+            </div>
+                            }
+        </div></div>

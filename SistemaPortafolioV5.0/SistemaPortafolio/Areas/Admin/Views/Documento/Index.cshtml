@@ -1,0 +1,95 @@
+﻿@model List<SistemaPortafolio.Models.CursoDocente>
+@{
+    List<SistemaPortafolio.Models.Ciclo> ciclo = ViewBag.ciclo;
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+}
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", style: 'width:50px;', columna: "codigo", ordenable: true, class:"info" },
+
+                     {
+                         leyenda: 'SEMESTRE', style: 'width:200px;', columna: 'semestre', class: "info", filtro: function () {
+                         return anexGrid_select({
+                             data: [
+                                 { valor: '', contenido: 'Todo' },
+                                 @foreach (var s in semestre)
+                             {
+                                     <text>
+                                         { valor: '@s.semestre_id', contenido: '@s.nombre' },
+                                     </text>
+                                    }
+                                ]
+                     });
+    }
+            },
+
+                    {
+                        leyenda: 'CICLO', style: 'width:100px;', columna: 'ciclo', class: "info", filtro: function () {
+                            return anexGrid_select({
+                                data: [
+                                    { valor: '', contenido: 'Todo' },
+                                    @foreach(var s in ciclo)
+                                    {
+                                        <text>
+                                            { valor: '@s.ciclo_id', contenido: '@s.nombre' },
+                                        </text>
+                                    }
+                                ]
+                            });
+                        }
+                    },
+
+                    { leyenda: "NOMBRE DEL CURSO", columna: "nombrecurso", class: "info", ordenable: true, filtro: true },
+
+                    { style: "width: 40px;", class: "info" },//boton ver documentos
+                ],
+
+                modelo: [
+
+                    { propiedad: "codigo" },
+                    { propiedad: "semestre" },
+                    { propiedad: "ciclo" },
+                    {
+                        propiedad: "nombrecurso", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Documento/MiDocumento/")'
+                            + obj.codigocurso + "_" + obj.codigo, contenido: valor
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Documento/MiDocumento/")'
+                            + obj.codigocurso + "_" + obj.codigo, contenido: "Verificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Mis Documentos" class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+                ],
+
+                url: '@Url.Content("~/Admin/Documento/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [5, 10, 20, 50], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'codigo',
+                columna_orden: "DESC"
+            });
+    })
+</script>

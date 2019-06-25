@@ -1,0 +1,21 @@
+﻿@model SistemaPortafolio.Models.Documento
+@{
+
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm("SubirDocumento", "Documento", FormMethod.Post, new { id = "frm_usuario" }))
+        {
+            <div class="panel panel-default">
+                <div class="form-group">
+                    <div class="text-center">
+                        <br />
+                        <label class="text-center">¿Está seguro de reemplazar?</label><br /><br />
+                        <input type="hidden" name="aceptar" value="si" />
+                        <button data-ajax="true" class="btn btn-success">Sí</button>
+                        <a href="~/User/Documento/IngresoDocumento" class="btn btn-danger">No</a>
+                    </div>
+                </div>
+            </div>
+        }
+        </div></div>

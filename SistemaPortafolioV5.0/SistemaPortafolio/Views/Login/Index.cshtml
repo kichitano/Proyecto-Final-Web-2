@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sistema de Portafolio - EPIS</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/ionicons.min.css" rel="stylesheet" />  
+    <link href="~/Assets/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="~/Assets/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/skins/_all-skins.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/fonts.css" rel="stylesheet" />
+    <link href="~/Assets/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Assets/js/moment.min.js"></script>
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Sistema de Portafolio</b>EPIS</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">@ViewBag.Title.</p>
+            @using (Html.BeginForm("Validar", "Login", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Use una cuenta local para iniciar sesión.</h4>
+                <hr />
+                
+                <div class="form-group has-feedback">
+                    <input id="login_username" name="Usuario" class="form-control" type="text" placeholder="Usuario" required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input id="login_password" name="Password" class="form-control" type="password" placeholder="Contraseña" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-4">
+                        <button data-ajax="true" type="submit" class="btn btn-primary btn-block btn-flat">Iniciar sesión</button>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+    <script src="~/Assets/js/jquery-3.1.1.min.js"></script>
+
+    <script src="~/Assets/js/bootstrap.min.js"></script>
+
+    <script src="~/Assets/js/fastclick.js"></script>
+
+    <script src="~/Assets/js/adminlte.js"></script>
+
+    <script src="~/Assets/js/jquery.sparkline.min.js"></script>
+
+    <script src="~/Assets/js/jquery-jvectormap-1.2.2.min.js"></script>
+
+    <script src="~/Assets/js/jquery-jvectormap-world-mill-en.js"></script>
+
+    <script src="~/Assets/js/jquery.slimscroll.min.js"></script>
+
+    <script src="~/Assets/js/Chart.min.js"></script>
+
+    <script src="~/Assets/js/ini.js"></script>
+    <script src="~/Assets/js/jquery.form.js"></script>
+
+    <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/Assets/js/jquery.anexgrid.min.js"></script>
+    </body>
+</html>
+

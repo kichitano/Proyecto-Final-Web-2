@@ -1,0 +1,167 @@
+﻿@model SistemaPortafolio.Models.Curso
+@{
+    List<SistemaPortafolio.Models.Ciclo> ciclo = ViewBag.ciclo;
+    List<SistemaPortafolio.Models.Curso> curso = ViewBag.curso;
+    List<SistemaPortafolio.Models.Persona> cursodocente = ViewBag.cursodocente;
+    SistemaPortafolio.Models.CursoDocente cursodocen = ViewBag.cursodocen;
+    string nombreplan = ViewBag.plan;
+}
+
+<script>
+    function obtenerSuma() {
+        document.getElementById('totalhoras').value = parseFloat(document.getElementById('horasteoria').value) + parseFloat(document.getElementById('horaspractica').value);
+    }
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>AGREGAR/EDITAR</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Curso/Index/@Session["plan_id"].ToString()">Curso</a></li>
+            <li class="active">@Model.curso_cod</li>
+        </ol>
+
+        @using (Html.BeginForm("Guardar", "Curso", FormMethod.Post, new { id = "frm-curso" }))
+        {
+            @Html.HiddenFor(x => x.curso_cod)
+            <div class="panel panel-default">
+                <div class="panel-heading">Información del Curso</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Código:</label>
+                        @if (Model.curso_cod == "" || Model.curso_cod == null)
+                {
+                            <input type="text" name="codigo_curso" class="form-control" />
+                            <input type="hidden" name="nuevo" value="si" class="form-control" />
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(x => x.curso_cod, new { @class = "form-control", @disabled = true })
+                            @Html.ValidationMessageFor(x => x.curso_cod, null, new { @class = "label label-danger" })
+                            <input type="hidden" name="nuevo" value="no" class="form-control" />
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Plan de Estudio:</label>
+                        <select name="plan_id" class="form-control">
+                            <option value="@Session["plan_id"].ToString()" class="form-control">@nombreplan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ciclo:</label>
+                        <select name="ciclo_id" class="form-control">
+                            @foreach (var p in ciclo)
+                            {
+                                <option @(Model.ciclo_id.Equals(p.ciclo_id) ? "selected" : "") value="@p.ciclo_id" class="form-control">@p.nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Docente a Cargo:</label>
+                        @try
+                {
+                            <select name="docente" class="form-control">
+                                @foreach (var p in cursodocente)
+                                {
+                                    <option @(cursodocen.persona_id.Equals(p.persona_id) ? "selected" : "") value="@p.persona_id" class="form-control">@p.nombre @p.apellido</option>
+                                }
+                            </select>
+                        }
+                        catch (Exception e)
+                        {
+                            <select name="docente" class="form-control">
+                                @foreach (var p in cursodocente)
+                                {
+                                    <option value="@p.persona_id" class="form-control">@p.nombre @p.apellido</option>
+                                }
+                            </select>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre del Curso:</label>
+                        @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Créditos del Curso:</label>
+                        @Html.TextBoxFor(x => x.credito, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(x => x.credito, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Horas de Teoría del Curso:</label>
+                        @Html.TextBoxFor(x => x.horasteoria, new { @class = "form-control", @type = "text", @onkeyup = "obtenerSuma();" })
+                        @Html.ValidationMessageFor(x => x.horasteoria, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Horas de Práctica del Curso:</label>
+                        @Html.TextBoxFor(x => x.horaspractica, new { @class = "form-control", @type = "text", @onkeyup = "obtenerSuma();" })
+                        @Html.ValidationMessageFor(x => x.horaspractica, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total de Horas del Curso:</label>
+                        @Html.TextBoxFor(x => x.totalhoras, new { @class = "form-control", @type = "text" })
+                        @Html.ValidationMessageFor(x => x.totalhoras, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pre-Requisito del Curso:</label>
+                        <select name="prerequisito" class="form-control">
+                            @try
+                            {
+                                <option @(Model.prerequisito.Equals("") || Model.prerequisito.Equals("No tiene") ? "selected" : "") value="No tiene">No tiene</option>
+                                foreach (var p in curso)
+                                {
+                                    <option @(Model.prerequisito.Equals(p.curso_cod) ? "selected" : "") value="@p.curso_cod" class="form-control">@p.nombre</option>
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                <option value="No tiene">No tiene</option>
+                                foreach (var p in curso)
+                                {
+                                    <option value="@p.curso_cod" class="form-control">@p.nombre</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        @{
+                            List<SelectListItem> estado = new List<SelectListItem>();
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Activo",
+                                Value = "Activo"
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Inactivo",
+                                Value = "Inactivo",
+                            });
+                        }
+                        @Html.DropDownListFor(x => x.estado, estado, "Seleccione", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/Admin/Curso/Index/@Session["plan_id"]" class="btn btn-danger">Cancelar</a>
+            </div>
+                            }
+    </div>
+</div>

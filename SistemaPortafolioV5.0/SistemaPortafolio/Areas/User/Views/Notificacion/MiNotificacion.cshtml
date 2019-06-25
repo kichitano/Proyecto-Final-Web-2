@@ -1,0 +1,28 @@
+﻿@model SistemaPortafolio.Models.Notificacion
+@{
+
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ol class="breadcrumb">
+            <li><a href="~/User/Notificacion/Index/@Model.persona_receptor">Mis Notificaciones</a></li>
+        </ol>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Notificación:</b> @Model.titulo</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>De:</dt>
+                    <dd>@Model.Persona.nombre @Model.Persona.apellido</dd>
+                    <dt>Para:</dt>
+                    <dd>@Model.Persona1.nombre @Model.Persona1.apellido</dd>
+                    <dt>Asunto:</dt>
+                    <dd>@Model.asunto</dd>
+                    <dt>Detalle:</dt>
+                    <dd>@Model.mensaje</dd>
+                    <dt>Fecha de Emisión:</dt>
+                    <dd>@Model.fecha_emision</dd>
+                </dl>
+            </div>
+        </div>
+        </div></div>

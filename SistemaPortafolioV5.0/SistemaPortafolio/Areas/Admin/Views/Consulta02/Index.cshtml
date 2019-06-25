@@ -1,0 +1,62 @@
+﻿
+@{
+    List<SistemaPortafolio.Models.Ciclo> ciclo = ViewBag.ciclo;
+    List<SistemaPortafolio.Models.PlanEstudio> plan_estudio = ViewBag.plan_estudio;
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div>
+            <h2>CONSULTA: Cursos por Plan de Estudios</h2>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", columna: "curso_cod",class:"info", ordenable: true },
+                    {
+                        leyenda: 'PLAN DE ESTUDIO', style: 'width:200px;', class: "info", columna: 'plan_estudio', filtro: function () {
+                            return anexGrid_select({
+                                data: [
+                                    { valor: '', contenido: 'Todo' },
+                                    @foreach (var s in plan_estudio)
+                                    {
+                                        <text>
+                                            { valor: '@s.plan_id', contenido: '@s.nombre' },
+                                        </text>
+                                    }
+                                ]
+                            });
+                        }
+                    },
+                    { leyenda: 'CICLO', style: 'width:200px;', class: "info", columna: 'nombre' },
+                    { leyenda: "NOMBRE DEL CURSO", columna: "nombrecurso", class: "info", ordenable: true, filtro: true },
+                    { leyenda: "PRE-REQUISITO", columna: "prerequisito", class: "info" },
+                ],
+
+                modelo: [
+
+                    { propiedad: "curso_cod" },
+                    { propiedad: "plan_estudio" },
+                    { propiedad: "nombre" },
+                    { propiedad: "nombrecurso" },
+                    { propiedad: "prerequisito" },
+
+                ],
+
+                url: '@Url.Content("~/Admin/Curso/CargarGrilla/0")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'curso_cod',
+                columna_orden: "DESC"
+            });
+    })
+</script>

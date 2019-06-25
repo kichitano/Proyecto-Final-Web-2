@@ -1,0 +1,18 @@
+{
+  "FilePath": "c:\\Users\\workholic\\Documents\\web2\\SistemaPortafolio - copia\\SistemaPortafolioV5.0\\SistemaPortafolio\\SistemaPortafolio.csproj",
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 703
+  },
+  "RootNamespace": null,
+  "Documents": []
+}

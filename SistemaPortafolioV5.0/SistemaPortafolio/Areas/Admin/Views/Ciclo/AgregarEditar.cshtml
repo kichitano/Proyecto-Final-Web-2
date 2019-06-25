@@ -1,0 +1,69 @@
+﻿@model SistemaPortafolio.Models.Ciclo
+@{
+    ViewBag.Title = (Model.ciclo_id > 0 ? Model.nombre : "Nuevo Registro");
+
+
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>AGREGAR/EDITAR</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Ciclo/Index">Ciclo</a></li>
+            <li class="active">@Model.ciclo_id</li>
+        </ol>
+
+        @using (Html.BeginForm("Guardar", "Ciclo", FormMethod.Post, new { id = "frm-ciclo" }))
+        {
+            @Html.HiddenFor(x => x.ciclo_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información del Ciclo</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.ciclo_id, new { @class = "form-control", @disabled = true })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ciclo:</label>
+                        @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.nombre, null, new { @class = "label label-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        @Html.TextAreaFor(x => x.descripcion, new { @class = "form-control", @cols = "1", @rows = "8", @style = "resize: none;" })
+                        @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        @{
+                            List<SelectListItem> estado = new List<SelectListItem>();
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Activo",
+                                Value = "Activo"
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Inactivo",
+                                Value = "Inactivo",
+                            });
+                        }
+                        @Html.DropDownListFor(x => x.estado, estado, new { @class = "form-control" })
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/Admin/Ciclo" class="btn btn-danger">Cancelar</a>
+            </div>
+                            }
+
+    </div>
+</div>

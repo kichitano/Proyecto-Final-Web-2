@@ -1,0 +1,56 @@
+﻿@model  SistemaPortafolio.Models.HojaVidaDocenteEX
+@{
+    ViewBag.Title = "HojaVidaDocenteEX";
+}
+<h2>Ver</h2>
+<ol class="breadcrumb">
+    <li><a href="~/Admin/HojaVidaDocenteEX/Index">HojaVidaDocenteEX</a></li>
+    <li class="active">@Model.institucion</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">Información Detallada de la HojaVidaDocenteEX</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd>@Model.hojavidadocenteex_id</dd>
+            <dt>ID</dt>
+            <dd>@Model.hojavida_id</dd>
+            <dt>institucion</dt>
+            <dd>@Model.institucion</dd>
+            <dt>fechainicio</dt>
+            @try
+            {
+                System.DateTime dt;
+                dt = Convert.ToDateTime(Model.fechainicio);
+
+                string fecha;
+                fecha = dt.ToString("dd/MM/yyyy");
+
+                <dd>@fecha</dd>
+            }
+            catch (Exception e)
+            {
+
+            }
+            <dt>fechafin</dt>
+            @try
+            {
+                System.DateTime dt;
+                dt = Convert.ToDateTime(Model.fechafin);
+
+                string fecha;
+                fecha = dt.ToString("dd/MM/yyyy");
+
+                <dd>@fecha</dd>
+            }
+            catch (Exception e)
+            {
+
+            }
+            <dt>Funcion</dt>
+            <dd>@Model.funcion</dd>
+        </dl>
+
+    </div>
+</div>
+

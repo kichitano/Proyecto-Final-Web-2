@@ -1,0 +1,63 @@
+﻿
+@model List<SistemaPortafolio.Models.Notificacion>
+
+@{
+    ViewBag.Title = "Consulta04";
+}
+
+<br />
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div>
+            <h2>CONSULTA: Notificaciones de Docentes</h2>
+        </div><br /><br />
+
+        @using (Html.BeginForm("Index", "Consulta04", FormMethod.Post, new { id = "frm-notificacion" }))
+        { <div class="text-left">
+            @Html.Label("Buscar: ")
+            @Html.TextBox("criterio", "", new { @placeholder = "Buscar por Código o DNI" } )
+            <button type="submit" class="btn btn-success">Buscar</button>
+
+
+        </div>
+        }
+        @if (Model != null)
+        {
+        <br />
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th style="width:50px; ">Id </th>
+
+                    <th style="width:50px; ">TITULO</th>
+                    <th style="width:100px; ">ASUNTO </th>
+                    <th style="width:100px; ">MENSAJE</th>
+                    <th style="width:200px; ">FECHA </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <th>@(m.notificacion_id)</th>
+                        <th>@(m.titulo)</th>
+                        <th>@(m.asunto)</th>
+                        <th>@(m.mensaje)</th>
+                        <th>@(m.fecha_emision)</th>
+
+
+
+
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+        }
+    </div>
+</div>

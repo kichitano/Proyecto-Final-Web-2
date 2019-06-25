@@ -1,0 +1,400 @@
+﻿
+@{
+    Layout = null;
+    string controlador = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+    List<SistemaPortafolio.Models.Notificacion> notificacion = new SistemaPortafolio.Models.Notificacion().ListarNotificacion(SistemaPortafolio.Models.SessionHelper.GetUser());
+    List<SistemaPortafolio.Models.Notificacion> notificacion_noleido = new SistemaPortafolio.Models.Notificacion().ListarNotificacionNoLeido(SistemaPortafolio.Models.SessionHelper.GetUser());
+    SistemaPortafolio.Models.Usuario usuario = new SistemaPortafolio.Models.Usuario().Obtener(SistemaPortafolio.Models.SessionHelper.GetUser());
+    List<SistemaPortafolio.Models.Usuario> users = new SistemaPortafolio.Models.Usuario().listarusuarios();
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sistema de Portafolio - EPIS</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="~/Assets/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/skins/_all-skins.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/fonts.css" rel="stylesheet" />
+
+    <link href="~/Assets/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Assets/js/moment.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+</head>
+<body class="hold-transition skin-red sidebar-mini">
+@if (controlador != "login")
+{
+    if(usuario.TipoUsuario1.nombre.Equals("Usuario"))
+    {
+        <text>
+        <script>
+            location.href = "/User/Home/Index";
+        </script>
+        </text>
+    }
+    <div class="wrapper">
+        <header class="main-header">
+
+            <a href="~/Admin/Home/Index" class="logo">
+
+                <span class="logo-mini"><b>EPIS</b></span>
+
+                <span class="logo-lg"><b>Portafolio</b></span>
+            </a>
+
+            <nav class="navbar navbar-static-top">
+              
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                <span class="label label-success">@notificacion_noleido.Count</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">Mis Mensajes</li>
+                                <li>
+
+                                    <ul class="menu  container-fluid">
+                                        @if (notificacion.Count != 0)
+                                        {
+                                            foreach (var n in notificacion)
+                                            {
+                                                foreach (var u in users)
+                                                {
+                                                    if (u.Persona.persona_id == n.persona_emisor)
+                                                    {
+                                                        if (n.estado.Equals("No Leido"))
+                                                        {
+                                                            <li>
+                                                                <a href="~/Admin/Notificacion/MiNotificacion/@n.notificacion_id" class="alert alert-info">
+                                                                    <div class="pull-left">
+                                                                        <br />
+                                                                        @if (u.avatar.Equals("user_default.png"))
+                                                                        {
+                                                                            <img src="~/Assets/img/user_default.png" class="img-circle" alt="User Image">
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <img src="~/Server/Images/@u.avatar" class="img-circle" alt="User Image">
+                                                                        }
+                                                                    </div>
+                                                                    <h4><small class="pull-left"><i class="glyphicon glyphicon-time"></i> @n.fecha_emision</small></h4><br />
+                                                                    <h4>
+                                                                        @n.titulo
+                                                                        <!--<small class="container-fluid"><i class="glyphicon glyphicon-time"></i> @*n.fecha_emision*@</small>-->
+                                                                    </h4>
+                                                                    <p>@n.asunto</p>
+                                                                </a>
+                                                            </li>
+                                                            break;
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <a href="~/Admin/Notificacion/MiNotificacion/@n.notificacion_id">
+                                                                    <div class="pull-left">
+                                                                        <br />
+                                                                        @if (u.avatar.Equals("user_default.png"))
+                                                                        {
+                                                                            <img src="~/Assets/img/user_default.png" class="img-circle" alt="User Image">
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <img src="~/Server/Images/@u.avatar" class="img-circle" alt="User Image">
+                                                                        }
+                                                                    </div>
+                                                                    <h4><small class="pull-left"><i class="glyphicon glyphicon-time"></i> @n.fecha_emision</small></h4><br />
+                                                                    <h4>
+                                                                        @n.titulo
+                                                                        <!--<small class="container-fluid"><i class="glyphicon glyphicon-time"></i> @*n.fecha_emision*@</small>-->
+                                                                    </h4>
+                                                                    <p>@n.asunto</p>
+                                                                </a>
+                                                            </li>
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="#">
+                                                    <p>¡Ninguna Notificación!</p>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="~/Admin/Notificacion/Index/@usuario.Persona.persona_id">Ver todos los mensajes</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                @if (usuario.avatar.Equals("user_default.png"))
+                                {
+                                    <img src="~/Assets/img/user_default.png" class="user-image" alt="User Image">
+                                }
+                                else
+                                {
+                                    <img src="~/Server/Images/@usuario.avatar" class="user-image" alt="User Image">
+                                }
+                                <span class="hidden-xs">@usuario.Persona.nombre @usuario.Persona.apellido</span>
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <li class="user-header">
+                                    @if (usuario.avatar.Equals("user_default.png"))
+                                    {
+                                        <img src="~/Assets/img/user_default.png" class="img-circle" alt="User Image">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Server/Images/@usuario.avatar" class="img-circle" alt="User Image">
+                                    }
+                                    <p>
+                                        @usuario.Persona.nombre @usuario.Persona.apellido
+                                        <small>@usuario.nombre</small>
+                                    </p>
+                                </li>
+
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="~/Admin/Perfil/Index/@usuario.usuario_id" class="btn btn-default btn-flat"><i class="glyphicon glyphicon-home"></i> Perfil</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="~/Login/Logout" class="btn btn-default btn-flat"><i class="glyphicon glyphicon-off"></i> Cerrar Sesión</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        @if (usuario.avatar.Equals("user_default.png"))
+                        {
+                            <img src="~/Assets/img/user_default.png" class="img-circle" alt="User Image">
+                        }
+                        else
+                        {
+                            <img src="~/Server/Images/@usuario.avatar" class="img-circle" alt="User Image">
+                        }
+                    </div>
+                    <div class="pull-left info">
+                        <p>@usuario.Persona.nombre <br />@usuario.Persona.apellido</p>
+                    </div><br /><br />
+                </div>
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header" style="color:#fffff">MENÚ PRINCIPAL</li>
+
+                    <li class="treeview">
+                        <a href="~/Admin/PlanEstudio">
+                            <i class="glyphicon glyphicon-book"></i> <span>General</span>
+                            <span class="pull-right-container">
+                                <i class="glyphicon glyphicon-menu-down"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="treeview">
+                                <a href="~/Admin/PlanEstudio">
+                                    <i class="glyphicon glyphicon-link"></i> <span>Plan Estudio</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="~/Admin/Semestre">
+                                    <i class="glyphicon glyphicon-link"></i> <span>Semestre</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="~/Admin/Ciclo">
+                                    <i class="glyphicon glyphicon-link"></i> <span>Ciclo</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="~/Admin/Unidad">
+                                    <i class="glyphicon glyphicon-link"></i> <span>Unidad</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-user"></i> <span>Persona</span>
+                            <span class="pull-right-container">
+                                <i class="glyphicon glyphicon-menu-down"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="~/Admin/TipoPersona"><i class="glyphicon glyphicon-link"></i>Tipo de Persona</a></li>
+                            <li><a href="~/Admin/Persona"><i class="glyphicon glyphicon-link"></i>Persona</a></li>
+                            <li class="treeview">
+                                <a href="~/Admin/Alumno">
+                                    <i class="glyphicon glyphicon-link"></i> <span>Alumno</span>
+                                </a>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-user"></i> <span>Usuario</span>
+                                    <span class="pull-right-container">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="active"><a href="~/Admin/TipoUsuario"><i class="glyphicon glyphicon-expand"></i>Tipo de Usuario</a></li>
+                                    <li><a href="~/Admin/Usuario"><i class="glyphicon glyphicon-link"></i>Usuario</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-modal-window"></i> <span>Curriculum Vitae</span>
+                            <span class="pull-right-container">
+                                <i class="glyphicon glyphicon-menu-down"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="~/Admin/HojaVida"><i class="glyphicon glyphicon-expand"></i>Buscar Docente</a></li>
+                            <li><a href="~/Admin/HojaVida/MiHojaVida"><i class="glyphicon glyphicon-expand"></i>Mi Curriculum Vitae</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-file"></i> <span>Documentos</span>
+                            <span class="pull-right-container">
+                                <i class="glyphicon glyphicon-menu-down"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="~/Admin/TipoDocumento"><i class="glyphicon glyphicon-expand"></i>Tipo de Documentos</a></li>
+                            <li><a href="~/Admin/EvaluacionDocumento"><i class="glyphicon glyphicon-expand"></i>Documentos Docentes</a></li>
+                            <li><a href="~/Admin/Documento"><i class="glyphicon glyphicon-expand"></i>Mis Documentos</a></li>
+                        </ul>
+                    </li>
+                    @*
+        <li class="treeview">
+            <a href="#">
+                <i class="glyphicon glyphicon-tasks"></i> <span>Consultas</span>
+                <span class="pull-right-container">
+                    <i class="glyphicon glyphicon-menu-down"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="~/Admin/Consulta01"><i class="glyphicon glyphicon-expand"></i>Persona por tipo</a></li>
+                <li><a href="~/Admin/Consulta02"><i class="glyphicon glyphicon-expand"></i>Cursos por Plan</a></li>
+                <li><a href="~/Admin/Consulta03"><i class="glyphicon glyphicon-expand"></i>Registros Hoja Vida</a></li>
+                <li><a href="~/Admin/Consulta04"><i class="glyphicon glyphicon-expand"></i>Notificaciones por docente</a></li>
+                <li><a href="~/Admin/Consulta05"><i class="glyphicon glyphicon-expand"></i>Metadata por documento</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="glyphicon glyphicon-stats"></i> <span>Reportes</span>
+                <span class="pull-right-container">
+                    <i class="glyphicon glyphicon-menu-down"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="~/Admin/Grafico01"><i class="glyphicon glyphicon-expand"></i>Tipos de usuarios</a></li>
+                <li><a href="~/Admin/Grafico02"><i class="glyphicon glyphicon-expand"></i>Hojas de Vida Docentes</a></li>
+                <li><a href="~/Admin/Grafico04"><i class="glyphicon glyphicon-expand"></i>Subida de Archivos</a></li>
+                <li><a href="~/Admin/Grafico05"><i class="glyphicon glyphicon-expand"></i>Estados de documento</a></li>
+            </ul>
+        </li>
+                    *@
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-cog"></i> <span>Configuración</span>
+                            <span class="pull-right-container">
+                                <i class="glyphicon glyphicon-menu-down"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="~/Admin/ConfiguracionEntrega"><i class="glyphicon glyphicon-expand"></i>Fecha de Entrega</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </section>
+        </aside>
+
+        <div class="content-wrapper">
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Versión</b> 2.0 - <a href="http://epis.upt.edu.pe">EPIS</a>
+            </div>
+            <strong>Ingeniería de Sistemas - Universidad Privada de Tacna</strong>
+        </footer>
+   </div>
+}
+else
+{
+    @RenderBody()
+}
+
+    <script src="~/Assets/js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="~/assets/js/jquery.slimscroll.min.js"></script>
+
+    <script src="~/assets/js/fastclick.js"></script>
+
+    <script src="~/assets/js/app.min.js"></script>
+
+    <script src="~/assets/js/demo.js"></script>
+
+    <script src="~/Assets/js/ini.js"></script>
+    <script src="~/Assets/js/jquery.form.js"></script>
+
+    <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Assets/js/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/Assets/js/jquery.anexgrid.min.js"></script>
+</body>
+</html>

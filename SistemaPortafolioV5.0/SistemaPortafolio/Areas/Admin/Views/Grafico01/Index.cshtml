@@ -1,0 +1,74 @@
+﻿@model string[,]
+@{
+    string data = "";
+}
+
+
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/funnel.js"></script>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="grafico" style="min-width: 410px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+
+        @{int count = 1; }
+        @{int cantidad = Model.GetUpperBound(0); }
+        @for (int i = 0; i <= cantidad; i++)
+        {
+            String name = Model[i, 0];
+            String y = Model[i, 1];
+            data = data + "{name: '" + name + "',  " + "y:" + y + ", " + "drilldown:' " + name + "'},";
+        }
+
+        <text>
+            <script>
+                Highcharts.chart('grafico', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Cantidad de Usuarios por Tipo'
+                    },
+
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total de Usuarios '
+                        }
+
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.1f}'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b><br/>'
+                    },
+
+                    series: [{
+                        name: 'Cantidad de usuarios',
+                        colorByPoint: true,
+                        data: [  @Html.Raw(data)]
+                    }],
+
+                });
+            </script>
+        </text>
+
+
+        </div></div>

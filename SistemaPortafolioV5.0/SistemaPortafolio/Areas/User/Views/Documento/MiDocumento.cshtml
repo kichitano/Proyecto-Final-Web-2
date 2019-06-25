@@ -1,0 +1,274 @@
+﻿
+@{
+    List<SistemaPortafolio.Models.Documento> documento = ViewBag.documento;
+    SistemaPortafolio.Models.CursoDocente docente = ViewBag.docente;
+    List<SistemaPortafolio.Models.Unidad> unidad = ViewBag.unidad;
+    List<SistemaPortafolio.Models.TipoDocumento> tipodocumento = ViewBag.tipodocumento;
+    SistemaPortafolio.Models.Persona verificarpersona = ViewBag.verificarpersona;
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ol class="breadcrumb">
+            <li><a href="~/User/Documento/Index">Mis Cursos</a></li>
+            <li class="active">@docente.Persona.nombre @docente.Persona.apellido</li>
+        </ol>
+
+        @using (Html.BeginForm("MiDocumento", "Documento", FormMethod.Post, new { id = "frm-planestudio" }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Detalle de la Persona</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input disabled class="form-control" value="@docente.Persona.nombre" />
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido:</label>
+                        <input disabled class="form-control" value="@docente.Persona.apellido" />
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Curso</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Curso:</label>
+                                <input disabled class="form-control" value="@docente.Curso.nombre" />
+                            </div>
+                            <div class="form-group">
+                                <label>Ciclo:</label>
+                                <input disabled class="form-control" value="@docente.Curso.Ciclo.nombre" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Tipos de Documentos</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        <select name="buscar" class="form-control">
+                            @foreach (var i in tipodocumento)
+                            {
+                                if (verificarpersona.TipoPersona.nombre.Equals("Alumno"))
+                                {
+                                    <option value="@i.tipodocumento_id">@i.nombre</option>
+                                }
+                                else
+                                {
+                                    if (i.nombre.ToLower().Equals("informe prueba de entrada"))
+                                    {
+                                        <option value="@i.tipodocumento_id">@i.nombre</option>
+                                    }
+                                    if (i.nombre.ToLower().Equals("informe portafolio del curso"))
+                                    {
+                                        <option value="@i.nombre">Documentos de Portafolio</option>
+                                    }
+                                    if (i.nombre.ToLower().Equals("informe final del curso"))
+                                    {
+                                        <option value="@i.tipodocumento_id">@i.nombre</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Documentos</button>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (verificarpersona != null)
+        {
+            if (verificarpersona.TipoPersona.nombre.Equals("Alumno"))
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">Documentos del Alumno</div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group text-right">
+                                    <a a href="~/User/Documento/IngresoDocumento" class="btn btn-primary">Subir Documento</a>
+                                </div>
+                            </div>
+                        </div><br />
+                        @if (unidad.Count != 0)
+                        {
+                            foreach (var u in unidad)
+                            {
+                                <div class="panel-heading">Unidad: @u.descripcion</div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tipo de Documento</th>
+                                            <th>Documento</th>
+                                            <th>Estado</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var d in documento)
+                                        {
+                                            if (u.id_unidad == d.id_unidad)
+                                            {
+                                                <tr>
+                                                    <th>@d.documento_id</th>
+                                                    <th>@d.TipoDocumento.nombre</th>
+                                                    <th>@d.descripcion</th>
+                                                    <th>@d.estado</th>
+                                                    <th><i data-toggle="tooltip" data-placement="top" title="Descargar" aria-hidden="true"><a href="~/User/Documento/DescargarDocumento/@(d.documento_id)" class="btn btn-success btn-sm  glyphicon glyphicon-download"></a></i></th>
+                                                    <th><i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/Documento/IngresoDocumento/@(d.documento_id)" class="btn btn-warning btn-sm  glyphicon glyphicon-pencil"></a></i></th>
+                                                    <th><i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/Documento/EliminarDocumento/@(d.documento_id)" class="btn btn-danger btn-sm  glyphicon glyphicon-erase" onclick="return confirm('¿Estás seguro de eliminar...?');"></a></i></th>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+        <!--docente-->
+                if (Session["buscar"] != null)
+                {
+                    if (Session["buscar"].ToString().ToLower().Equals("informe prueba de entrada"))
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Informe Prueba de Entrada</div>
+                            <div class="panel-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="form-group text-right">
+                                            <a a href="~/User/Documento/PruebaEntrada" class="btn btn-primary">Subir Documento</a>
+                                        </div>
+                                    </div>
+                                </div><br />
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tipo de Documento</th>
+                                            <th>Documento</th>
+                                            <th>Estado</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var d in documento)
+                                        {
+                                            <tr>
+                                                <th>@d.documento_id</th>
+                                                <th>@d.TipoDocumento.nombre</th>
+                                                <th>@d.descripcion</th>
+                                                <th>@d.estado</th>
+                                                <th><i data-toggle="tooltip" data-placement="top" title="Descargar" aria-hidden="true"><a href="~/User/Documento/DescargarDocumento/@(d.documento_id)" class="btn btn-success btn-sm  glyphicon glyphicon-download"></a></i></th>
+                                                <th><i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/Documento/PruebaEntrada/@(d.documento_id)" class="btn btn-warning btn-sm  glyphicon glyphicon-pencil"></a></i></th>
+                                                <th><i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/Documento/EliminarDocumento/@(d.documento_id)" class="btn btn-danger btn-sm  glyphicon glyphicon-erase" onclick="return confirm('¿Estás seguro de eliminar...?');"></a></i></th>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    }
+                    if (Session["buscar"].ToString().ToLower().Equals("informe final del curso"))
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Informe Final del Curso</div>
+                            <div class="panel-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="form-group text-right">
+                                            <a a href="~/User/Documento/InformeFinalCurso" class="btn btn-primary">Subir Documento</a>
+                                        </div>
+                                    </div>
+                                </div><br />
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tipo de Documento</th>
+                                            <th>Documento</th>
+                                            <th>Estado</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var d in documento)
+                                        {
+                                            <tr>
+                                                <th>@d.documento_id</th>
+                                                <th>@d.TipoDocumento.nombre</th>
+                                                <th>@d.descripcion</th>
+                                                <th>@d.estado</th>
+                                                <th><i data-toggle="tooltip" data-placement="top" title="Descargar" aria-hidden="true"><a href="~/User/Documento/DescargarDocumento/@(d.documento_id)" class="btn btn-success btn-sm  glyphicon glyphicon-download"></a></i></th>
+                                                <th><i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/Documento/InformeFinalCurso/@(d.documento_id)" class="btn btn-warning btn-sm  glyphicon glyphicon-pencil"></a></i></th>
+                                                <th><i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/Documento/EliminarDocumento/@(d.documento_id)" class="btn btn-danger btn-sm  glyphicon glyphicon-erase" onclick="return confirm('¿Estás seguro de eliminar...?');"></a></i></th>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    }
+                    if (Session["buscar"].ToString().ToLower().Equals("informe portafolio del curso"))
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Portafolio</div>
+                            <div class="panel-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="form-group text-right">
+                                            <a a href="~/User/Documento/IngresoDocumento" class="btn btn-primary">Subir Documento</a>
+                                        </div>
+                                    </div>
+                                </div><br />
+                                @if (unidad.Count != 0)
+                                {
+                                    foreach (var u in unidad)
+                                    {
+                                        <div class="panel-heading">Unidad: @u.descripcion</div>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Tipo de Documento</th>
+                                                    <th>Documento</th>
+                                                    <th>Estado</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var d in documento)
+                                                {
+                                                    if (u.id_unidad == d.id_unidad)
+                                                    {
+                                                        <tr>
+                                                            <th>@d.documento_id</th>
+                                                            <th>@d.TipoDocumento.nombre</th>
+                                                            <th>@d.descripcion</th>
+                                                            <th>@d.estado</th>
+                                                            <th><i data-toggle="tooltip" data-placement="top" title="Descargar" aria-hidden="true"><a href="~/User/Documento/DescargarDocumento/@(d.documento_id)" class="btn btn-success btn-sm  glyphicon glyphicon-download"></a></i></th>
+                                                            <th><i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/Documento/IngresoDocumento/@(d.documento_id)" class="btn btn-warning btn-sm  glyphicon glyphicon-pencil"></a></i></th>
+                                                            <th><i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/Documento/EliminarDocumento/@(d.documento_id)" class="btn btn-danger btn-sm  glyphicon glyphicon-erase" onclick="return confirm('¿Estás seguro de eliminar...?');"></a></i></th>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        }
+        <!--FORMATO PARA GUARDAR DOCUMENTOS @**@(d.archivo)_@**@(d.id_semestre)_*@**@(d.id_unidad)_*@**@(d.curso_cod)_@**@(d.persona_id)-->
+        </div></div>

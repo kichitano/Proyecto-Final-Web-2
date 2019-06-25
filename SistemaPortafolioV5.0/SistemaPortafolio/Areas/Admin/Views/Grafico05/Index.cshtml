@@ -1,0 +1,351 @@
+﻿@model List<SistemaPortafolio.Models.Documento>
+@{
+    string data_serie = "";
+    string data_categoria = "";
+    string data_valor = "";
+    string data_valores = "";
+    List<SistemaPortafolio.Models.Unidad> Unidad = ViewBag.unidad;
+    SistemaPortafolio.Models.Persona person = ViewBag.persona;
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">Gráfica de documentos rechazados, aceptados o enviados por docente en el semestre actual (por unidad)</div>
+        </div>
+
+        @using (Html.BeginForm("Index", "Grafico05", FormMethod.Post, new { criterio = "frm-buscar" }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Gráficos Estadísticos</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Seleccione el Gráfico:</label>
+                        <select name="grafico" class="form-control">
+                            <option selected value="glinea">Gráfico de Líneas</option>
+                            <option value="gbarraagrupada">Gráfico de Barras Agrupadas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Buscar Docente:</label>
+                        <input type="text" name="codigopersona" class="form-control" placeholder="Buscar por DNI o Código" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Generar Gráfico" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        @try
+        {
+            if (person != null)
+            {
+            <label>Docente: <b>@person.nombre @person.apellido</b></label><br />
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        <script src="~/Assets/js/highcharts/exporting.js"></script>
+        <script src="~/Assets/js/highcharts/highcharts-3d.js"></script>
+        <script src="~/Assets/js/highcharts/highcharts.js"></script>
+        <script src="~/Assets/js/highcharts/offline-exporting.js"></script>
+
+        <div id="grafico"></div>
+        @if (Session["grafico"] != null)
+        {
+            if (Session["grafico"].Equals("glinea"))
+            {
+                foreach (var ca in Unidad)
+                {
+                    data_categoria = data_categoria + "'" + ca.descripcion + "',";
+                }
+
+                for (int i = 1; i <= 3; i++)
+                {
+
+                    if (i == 1)
+                    {
+                        data_serie = data_serie + "{name: 'Aceptado', ";
+                    }
+                    if (i == 2)
+                    {
+                        data_serie = data_serie + "{name: 'Rechazado', ";
+                    }
+                    if (i == 3)
+                    {
+                        data_serie = data_serie + "{name: 'Enviado', ";
+                    }
+
+                    foreach (var co in Unidad)
+                    {
+                        var flag = false;
+                        var flag1 = false;
+                        var flag2 = true;
+                        var cant = 0;
+                        foreach (var k in Model)
+                        {
+                            if (k.id_unidad == co.id_unidad)
+                            {
+                                foreach (var m in Model)
+                                {
+                                    if (m.estado.Equals("Aceptado") && i == 1)
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.id_unidad == co.id_unidad)
+                                        {
+                                            flag = true;
+                                            flag1 = true;
+                                            cant++;
+                                        }
+                                    }
+                                    if (m.estado.Equals("Rechazado") && i == 2)
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.id_unidad == co.id_unidad)
+                                        {
+                                            flag = true;
+                                            flag1 = true;
+                                            cant++;
+                                        }
+                                    }
+                                    if (m.estado.Equals("Enviado") && i == 3)
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.id_unidad == co.id_unidad)
+                                        {
+                                            flag = true;
+                                            flag1 = true;
+                                            flag2 = false;
+                                            cant++;
+                                        }
+                                    }
+                                }
+                                if (!flag)
+                                {
+                                    data_valor = " data: [";
+                                    data_valores = data_valores + "0, ";
+                                    flag = false;
+                                    flag2 = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    data_valores = data_valores + cant + ", ";
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (flag2)
+                        {
+                            if (!flag1)
+                            {
+                                data_valores = data_valores + "0, ";
+                                flag1 = false;
+                                flag2 = true;
+                            }
+                        }
+                    }
+
+                    data_valor = data_valor + data_valores + "]";
+                    data_valores = "";
+                    data_serie = data_serie + data_valor + "}, ";
+                }
+
+
+                <text>
+                    <script>
+                        Highcharts.chart('grafico', {
+                            chart: {
+                                type: 'areaspline'
+                            },
+                            title: {
+                                text: 'Gráfica de Documentos Rechazados, Aceptados o Enviados por Docente en el Semestre Actual (por Unidad)'
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'left',
+                                verticalAlign: 'top',
+                                x: 150,
+                                y: 100,
+                                floating: true,
+                                borderWidth: 1,
+                                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                            },
+                            xAxis: {
+                                categories: [
+                                    @Html.Raw(data_categoria)
+                                ],
+                                plotBands: [{
+                                    from: 4.5,
+                                    to: 6.5,
+                                    color: 'rgba(68, 170, 213, .2)'
+                                }]
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Cantidad'
+                                }
+                            },
+                            tooltip: {
+                                shared: true,
+                                valueSuffix: ''
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            plotOptions: {
+                                areaspline: {
+                                    fillOpacity: 0.5
+                                }
+                            },
+                            series: [@Html.Raw(data_serie)]
+                        });
+                    </script>
+                </text>
+            }
+            else if (Session["grafico"].Equals("gbarraagrupada"))
+            {
+                foreach (var ca in Unidad)
+                {
+                    data_categoria = data_categoria + "'" + ca.descripcion + "',";
+                }
+
+                for (int i = 1; i <= 3; i++)
+                {
+
+                    if (i == 1)
+                    {
+                        data_serie = data_serie + "{name: 'Aceptado', ";
+                    }
+                    if (i == 2)
+                    {
+                        data_serie = data_serie + "{name: 'Rechazado', ";
+                    }
+                    if (i == 3)
+                    {
+                        data_serie = data_serie + "{name: 'Enviado', ";
+                    }
+
+                    foreach (var co in Unidad)
+                    {
+                        var flag = false;
+                        var flag1 = false;
+                        var flag2 = true;
+                        var cant = 0;
+                        foreach (var k in Model)
+                        {
+                            if (k.id_unidad == co.id_unidad)
+                            {
+                                foreach (var m in Model)
+                                {
+                                    if (m.estado.Equals("Aceptado") && i == 1)
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.id_unidad == co.id_unidad)
+                                        {
+                                            flag = true;
+                                            flag1 = true;
+                                            cant++;
+                                        }
+                                    }
+                                    if (m.estado.Equals("Rechazado") && i == 2)
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.id_unidad == co.id_unidad)
+                                        {
+                                            flag = true;
+                                            flag1 = true;
+                                            cant++;
+                                        }
+                                    }
+                                    if (m.estado.Equals("Enviado") && i == 3)
+                                    {
+                                        //data_serie = data_serie + "{name: '" + c.nombre + "', ";
+                                        data_valor = " data: [";
+                                        if (m.id_unidad == co.id_unidad)
+                                        {
+                                            flag = true;
+                                            flag1 = true;
+                                            flag2 = false;
+                                            cant++;
+                                        }
+                                    }
+                                }
+                                if (!flag)
+                                {
+                                    data_valor = " data: [";
+                                    data_valores = data_valores + "0, ";
+                                    flag = false;
+                                    flag2 = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    data_valores = data_valores + cant + ", ";
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (flag2)
+                        {
+                            if (!flag1)
+                            {
+                                data_valores = data_valores + "0, ";
+                                flag1 = false;
+                                flag2 = true;
+                            }
+                        }
+                    }
+
+                    data_valor = data_valor + data_valores + "]";
+                    data_valores = "";
+                    data_serie = data_serie + data_valor + "}, ";
+                }
+
+                <text>
+                    <script>
+                        Highcharts.chart('grafico', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Gráfica de Documentos Rechazados, Aceptados o Enviados por Docente en el Semestre Actual (por Unidad)'
+                            },
+                            xAxis: {
+                                categories: [@Html.Raw(data_categoria)]
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Cantidad'
+                                }
+                            },
+                            tooltip: {
+                                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                                shared: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    stacking: 'percent'
+                                }
+                            },
+                            series: [@Html.Raw(data_serie)]
+                        });
+                    </script>
+                </text>
+            }
+        }
+        </div></div>

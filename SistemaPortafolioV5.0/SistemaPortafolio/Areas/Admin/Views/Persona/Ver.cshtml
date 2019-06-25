@@ -1,0 +1,41 @@
+﻿@model  SistemaPortafolio.Models.Persona
+@{
+
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>DETALLE</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Persona/Index">Persona</a></li>
+            <li class="active">@Model.codigo</li>
+        </ol>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Información Detallada de la Persona</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>ID</dt>
+                    <dd>@Model.persona_id</dd>
+                    <dt>Tipo de Persona</dt>
+                    <dd>@Model.TipoPersona.nombre</dd>
+                    <dt>DNI</dt>
+                    <dd>@Model.dni</dd>
+                    <dt>Código</dt>
+                    <dd>@Model.codigo</dd>
+                    <dt>Nombre</dt>
+                    <dd>@Model.nombre</dd>
+                    <dt>Apellido</dt>
+                    <dd>@Model.apellido</dd>
+                    <dt>Email</dt>
+                    <dd>@Model.email</dd>
+                    <dt>Celular</dt>
+                    <dd>@Model.celular</dd>
+                    <dt>Estado</dt>
+                    <dd>@Model.estado</dd>
+                </dl>
+
+            </div>
+        </div>
+
+        </div></div>

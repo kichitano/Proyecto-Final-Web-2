@@ -1,0 +1,119 @@
+﻿@model SistemaPortafolio.Models.HojaVidaDocenteFC
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>FORMACIÓN CONTINUA</h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="~/User/HojaVida/AgregarEditarFA/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Formación Académica
+                </a>
+            </div>
+            <div class="col-lg-6 text-right">
+                <a href="~/User/HojaVida/AgregarEditarEX/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a Experiencias
+                </a>
+            </div>
+        </div>
+        <br />
+        @using (Html.BeginForm("AgregarEditarFC", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.hojavidadocentefc_id)
+            @Html.HiddenFor(x => x.hojavida_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información de Formación Continua</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label>Institución:</label>
+                        @Html.EditorFor(model => model.institucion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.institucion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Selecciona la Duración:</label>
+                        <select name="tiempo_duracion" class="form-control">
+                            <option @(Model.tiempo_duracion == "HORAS" ? "selected" : "") value="HORAS">HORAS</option>
+                            <option @(Model.tiempo_duracion == "DIAS" ? "selected" : "") value="DIAS">DIAS</option>
+                            <option @(Model.tiempo_duracion == "SEMANAS" ? "selected" : "") value="SEMANAS">SEMANAS</option>
+                            <option @(Model.tiempo_duracion == "MESES" ? "selected" : "") value="MESES">MESES</option>
+                            <option @(Model.tiempo_duracion == "AÑOS" ? "selected" : "") value="AÑOS">AÑOS</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.tiempo_duracion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duración:</label>
+                        @Html.EditorFor(model => model.duracion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.duracion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Curso:</label>
+                        @Html.EditorFor(model => model.curso, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.curso, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/User/HojaVida/AgregarEditarFC" class="btn btn-danger">Cancelar</a>
+            </div>
+
+        }
+    <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">Mi Formacion Continua</div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive">
+                    <tr>
+                        <th>
+                            Institucion
+                        </th>
+                        <th>
+                            Tiempo duracion
+                        </th>
+                        <th>
+                            Duracion
+                        </th>
+                        <th>
+                            Curso
+                        </th>
+                        <th>Opción</th>
+                    </tr>
+
+                    @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocenteFC>)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.institucion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tiempo_duracion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.duracion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.curso)
+                            </td>
+                            <td>
+                                <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/HojaVida/AgregarEditarFC/@item.hojavidadocentefc_id" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+                            </td>
+                            <td>
+                                <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/HojaVidaDocenteFC/Eliminar/@item.hojavidadocentefc_id" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+
+        </div></div>

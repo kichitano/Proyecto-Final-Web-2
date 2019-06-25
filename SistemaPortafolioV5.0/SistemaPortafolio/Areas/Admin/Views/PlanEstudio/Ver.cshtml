@@ -1,0 +1,53 @@
+﻿@model SistemaPortafolio.Models.PlanEstudio
+@{
+    List<SistemaPortafolio.Models.Curso> curso = ViewBag.curso;
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>DETALLE</h2>
+
+<ol class="breadcrumb">
+    <li><a href="~/Admin/PlanEstudio/Index">Plan de Estudio</a></li>
+    <li class="active">@Model.nombre</li>
+</ol>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Información Detallada del Plan de Estudio</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>ID:</dt>
+            <dd>@Model.semestre_id</dd>
+            <dt>Semestre:</dt>
+            <dd>@Model.Semestre.nombre</dd>
+            <dt>Nombre:</dt>
+            <dd>@Model.nombre</dd>
+            <dt>Estado:</dt>
+            <dd>@Model.estado</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Cursos del Plan de Estudio</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">Código</th>
+                    <th style="width: 200px;">Curso</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in curso)
+                {
+                    <tr>
+                        <th>@m.curso_cod</th>
+                        <th>@m.nombre</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+        </div></div>

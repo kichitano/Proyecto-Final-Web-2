@@ -1,0 +1,116 @@
+﻿@model SistemaPortafolio.Models.Documento
+@{
+
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm("ModificarEstadoDocumento", "EvaluacionDocumento", FormMethod.Post, new { id = "frm-curso" }))
+        {
+            <input type="hidden" name="personaid" value="@Model.persona_id" />
+
+            @Html.HiddenFor(x => x.documento_id)
+            <div class="panel panel-default">
+                <div class="panel-heading">Información del Documento</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.documento_id, new { @class = "form-control", @disabled = true })
+                        @Html.ValidationMessageFor(x => x.documento_id, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        @Html.TextBoxFor(x => x.TipoDocumento.nombre, new { @class = "form-control", @disabled = true })
+                        @Html.ValidationMessageFor(x => x.TipoDocumento.nombre, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Docente:</label>
+                        <input type="text" class="form-control" disabled name="docente" value="@Model.Persona.nombre @Model.Persona.apellido" />
+                    </div>
+                    <input type="hidden" value="@Model.Curso.curso_cod" name="curso_cod" />
+                    <div class="form-group">
+                        <label>Curso:</label>
+                        @Html.TextBoxFor(x => x.Curso.nombre, new { @class = "form-control", @disabled = true })
+                        @Html.ValidationMessageFor(x => x.Curso.nombre, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Documento:</label>
+                        @Html.TextBoxFor(x => x.archivo, new { @class = "form-control", @disabled = true })
+                        @Html.ValidationMessageFor(x => x.archivo, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción del Documento:</label>
+                        @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control", @disabled = true })
+                        @Html.ValidationMessageFor(x => x.descripcion, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Entrega:</label>
+                        @try
+                {
+                    System.DateTime dt;
+                    dt = Convert.ToDateTime(Model.fecha_entrega);
+
+                    string fecha;
+                    fecha = dt.ToString("yyyy-MM-dd");
+
+                            <input type="date" name="fecha_entrega" disabled value="@fecha" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hora de Entrega:</label>
+                        @try
+                {
+                    System.DateTime dt;
+                    dt = Convert.ToDateTime(Model.hora_entrega);
+
+                    string hora;
+                    hora = dt.ToString("HH:mm:ss");
+
+                            <input type="time" disabled name="hora_entrega" value="@hora" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        @{
+                            List<SelectListItem> estado = new List<SelectListItem>();
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Enviado",
+                                Value = "Enviado"
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Rechazado",
+                                Value = "Rechazado",
+                            });
+                            estado.Add(new SelectListItem
+                            {
+                                Text = "Aceptado",
+                                Value = "Aceptado",
+                            });
+                        }
+                        @Html.DropDownListFor(x => x.estado, estado, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <a href="~/Admin/EvaluacionDocumento/Evaluar/@(Model.curso_cod)_@(Model.persona_id)" class="btn btn-danger">Cancelar</a>
+            </div>
+                            }
+        </div></div>

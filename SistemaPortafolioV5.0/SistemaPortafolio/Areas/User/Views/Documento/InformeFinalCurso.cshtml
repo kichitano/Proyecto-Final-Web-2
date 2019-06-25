@@ -1,0 +1,101 @@
+﻿@model SistemaPortafolio.Models.Documento
+@{
+    List<SistemaPortafolio.Models.TipoDocumento> tipodocumento = ViewBag.tipodocumento;
+    List<SistemaPortafolio.Models.CursoDocente> curso = ViewBag.curso;
+    List<SistemaPortafolio.Models.Unidad> unidad = ViewBag.unidad;
+    SistemaPortafolio.Models.Usuario usuario = new SistemaPortafolio.Models.Usuario().Obtener(SistemaPortafolio.Models.SessionHelper.GetUser());
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm("SubirDocumento", "Documento", FormMethod.Post, new { id = "frm_usuario" , enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" value="@usuario.persona_id" name="persona_id" />
+            @Html.HiddenFor(x => x.documento_id)
+            <div class="panel panel-default">
+                <div class="panel-heading">Informe Final del Curso</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>ID:</label>
+                        @Html.TextBoxFor(x => x.documento_id, new { @class = "form-control", @disabled = true })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        <select name="tipodocumento_id" class="form-control">
+                            @foreach (var p in tipodocumento)
+                            {
+                                if (p.nombre.ToLower().Equals("informe final del curso"))
+                                {
+                                    <option value="@p.tipodocumento_id" class="form-control">@p.nombre</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unidad:</label>
+                        <select name="id_unidad" class="form-control">
+                            @foreach (var p in unidad)
+                            {
+                                if (p.descripcion.Equals("III"))
+                                {
+                                    if (Model.id_unidad == p.id_unidad)
+                                    {
+                                        <option selected value="@p.id_unidad" class="form-control">@p.descripcion</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@p.id_unidad" class="form-control">@p.descripcion</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Curso:</label>
+                        <select name="curso_cod" class="form-control">
+                            @foreach (var p in curso)
+                            {
+                                if (Model.curso_cod != null)
+                                {
+
+                                    if (Model.curso_cod.Equals(p.curso_cod))
+                                    {
+                                        <option selected value="@p.curso_cod" class="form-control">@p.Curso.nombre</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@p.curso_cod" class="form-control">@p.Curso.nombre</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="@p.curso_cod" class="form-control">@p.Curso.nombre</option>
+                                }
+                            }
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Archivo:</label>
+                        <input type="file" name="archivo" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select name="estado" class="form-control">
+                            <option selected value="Enviado">Enviado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button data-ajax="true" class="btn btn-primary">Subir Documento</button>
+                <a href="~/User/Documento" class="btn btn-danger">Cancelar</a>
+            </div>
+        }
+        </div></div>

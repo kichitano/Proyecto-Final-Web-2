@@ -1,0 +1,56 @@
+﻿
+
+
+@model SistemaPortafolio.Models.Curso
+@{
+    SistemaPortafolio.Models.CursoDocente cursodocente = ViewBag.cursodocente;
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <h2>DETALLE</h2>
+
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Curso/Index/@Session["plan_id"].ToString()">Curso</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Información Detallada del Curso</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>Código:</dt>
+                    <dd>@Model.curso_cod</dd>
+                    <dt>Plan de Estudio:</dt>
+                    <dd>@Model.PlanEstudio.nombre</dd>
+                    <dt>Ciclo:</dt>
+                    <dd>@Model.Ciclo.nombre</dd>
+                    <dt>Nombre:</dt>
+                    <dd>@Model.nombre</dd>
+                    @try
+            {
+                        <dt>Docente a Cargo:</dt>
+                        <dd>@cursodocente.Persona.nombre @cursodocente.Persona.apellido</dd>
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    <dt>Crédito:</dt>
+                    <dd>@Model.credito</dd>
+                    <dt>Horas de Teória:</dt>
+                    <dd>@Model.horasteoria</dd>
+                    <dt>Horas de Práctica:</dt>
+                    <dd>@Model.horaspractica</dd>
+                    <dt>Total de Horas:</dt>
+                    <dd>@Model.totalhoras</dd>
+                    <dt>Pre-Requisito:</dt>
+                    <dd>@Model.prerequisito</dd>
+                    <dt>Estado:</dt>
+                    <dd>@Model.estado</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

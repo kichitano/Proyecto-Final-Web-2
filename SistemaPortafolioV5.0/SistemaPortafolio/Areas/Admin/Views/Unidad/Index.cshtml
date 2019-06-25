@@ -1,0 +1,104 @@
+﻿@model List<SistemaPortafolio.Models.Unidad>
+@{
+    List<SistemaPortafolio.Models.Semestre> semestre = ViewBag.semestre;
+}
+<!---->
+
+<br />
+
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="text-right">
+            <a href="~/Admin/Unidad/AgregarEditar/"
+               class="btn btn-primary pull-right">Nueva Unidad</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", style: 'width:20px;', class: "info", columna: "codigo", ordenable: true },
+
+                    {
+                        leyenda: 'SEMESTRE', style: 'width:200px;', class: "info", columna: 'semestre', filtro: function () {
+                        return anexGrid_select({
+                            data: [
+                                { valor: '', contenido: 'Todo' },
+                                @foreach (var s in semestre)
+                                {
+                                    <text>
+                                        { valor: '@s.semestre_id', contenido: '@s.nombre' },
+                                    </text>
+                                    }
+                                ]
+                    });
+    }
+            },
+
+                    { leyenda: 'UNIDAD', style: 'width:200px;', class: "info", columna: 'nombre', filtro: true },
+
+                    { leyenda: 'ESTADO', style: 'width:50px;', class: "info", columna: 'estado' },
+
+                    { style: "width: 40px;", class: "info" },//boton modificar
+                    { style: "width: 40px;", class: "info" },//boton eliminar
+                ],
+
+                modelo: [
+
+                    { propiedad: "codigo" },
+                    { propiedad: "semestre" },
+                    {
+                        propiedad: "nombre", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Unidad/AgregarEditar/")'
+                            + obj.codigo, contenido: valor
+                            });
+                        }
+                    },
+
+                    { propiedad: "estado" },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Unidad/AgregarEditar/")'
+                            + obj.codigo, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Unidad/Eliminar/")'
+                            + obj.codigo, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/Unidad/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [5, 10, 20, 30], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'codigo',
+                columna_orden: "DESC"
+            });
+    })
+</script>

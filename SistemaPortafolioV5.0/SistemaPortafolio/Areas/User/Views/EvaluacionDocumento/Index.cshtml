@@ -1,0 +1,76 @@
+﻿@model List<SistemaPortafolio.Models.CursoDocente>
+@{
+    List<SistemaPortafolio.Models.CursoDocente> curso = ViewBag.curso;
+}
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", style: 'width:50px;', columna: "codigo", ordenable: true, class: "info" },
+
+                     {
+                         leyenda: 'CÓDIGO DEL CURSO', style: 'width:200px;', columna: 'codigocurso', class: "info", filtro: function () {
+                         return anexGrid_select({
+                             data: [
+                                 { valor: '', contenido: 'Todo' },
+                                 @foreach (var s in curso)
+                             {
+                                     <text>
+                                         { valor: '@s.curso_cod', contenido: '@s.Curso.nombre' },
+                                     </text>
+                                    }
+                                ]
+                     });
+    }
+            },
+                    { leyenda: "ALUMNO", columna: "alumno", filtro: true, class: "info" },
+
+                    { style: "width: 40px;", class: "info" },//boton evaluar
+                ],
+
+                modelo: [
+
+                    { propiedad: "codigo" },
+                    { propiedad: "codigocurso" },
+                    {
+                        propiedad: "alumno", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/User/EvaluacionDocumento/Evaluar/")'
+                            + obj.codigocurso + "_" + obj.codigo, contenido: valor
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/User/EvaluacionDocumento/Evaluar/")'
+                            + obj.codigocurso + "_" + obj.codigo, contenido: "Verificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Verificar" class="glyphicon glyphicon-check" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+                ],
+
+                url: '@Url.Content("~/User/EvaluacionDocumento/CargarGrillaA/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [5, 10, 20, 50], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'codigo',
+                columna_orden: "DESC"
+            });
+    })
+</script>

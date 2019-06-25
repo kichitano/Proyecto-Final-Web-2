@@ -1,0 +1,27 @@
+﻿@model  SistemaPortafolio.Models.TipoPersona
+@{
+    ViewBag.Title = "TipoPersona";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>DETALLE</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/TipoPersona/Index">TipoPersona</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+        <div class="panel panel-default">
+            <div class="panel-heading">Información Detallada del TipoPersona</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>ID</dt>
+                    <dd>@Model.tipopersona_id</dd>
+                    <dt>Nombre</dt>
+                    <dd>@Model.nombre</dd>
+                    <dt>Estado</dt>
+                    <dd>@Model.estado</dd>
+                </dl>
+
+            </div>
+        </div>
+
+        </div></div>

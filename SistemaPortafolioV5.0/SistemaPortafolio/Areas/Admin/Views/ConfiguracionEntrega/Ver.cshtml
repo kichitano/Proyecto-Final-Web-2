@@ -1,0 +1,62 @@
+﻿@model SistemaPortafolio.Models.ConfigEntrega
+@{
+
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <h2>DETALLE</h2>
+
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/ConfiguracionEntrega/">Configuración de Entrega</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Información detallada de la Configuración de Entrega</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>ID:</dt>
+                    <dd>@Model.configentrega_id</dd>
+                    <dt>Semestre:</dt>
+                    <dd>@Model.Unidad.Semestre.nombre</dd>
+                    <dt>Unidad:</dt>
+                    <dd>@Model.Unidad.descripcion</dd>
+                    <dt>Nombre:</dt>
+                    <dd>@Model.nombre</dd>
+                    <dt>Fecha Inicio de Entrega:</dt>
+                    @try
+            {
+                System.DateTime dt;
+                dt = Convert.ToDateTime(Model.fecha_inicio);
+
+                string fecha_inicio;
+                fecha_inicio = dt.ToString("dd/MM/yyyy");
+                        <dd>@fecha_inicio</dd>
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    <dt>Fecha Fin de Entrega:</dt>
+                    @try
+            {
+                System.DateTime dt;
+                dt = Convert.ToDateTime(Model.fecha_fin);
+
+                string fecha_fin;
+                fecha_fin = dt.ToString("dd/MM/yyyy");
+                        <dd>@fecha_fin</dd>
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    <dt>Estado:</dt>
+                    <dd>@Model.estado</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

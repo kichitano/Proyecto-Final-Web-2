@@ -1,0 +1,68 @@
+﻿@model List<SistemaPortafolio.Models.Notificacion>
+@{
+    
+}
+<br />
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", style: 'width:50px;', columna: "codigo",class:"info"},
+
+                    { leyenda: 'ENVIADO POR', style: 'width:100px;', columna: 'emisor', class: "info" },
+
+                    { leyenda: "TÍTULO", columna: "titulo"},
+
+                    { leyenda: "ASUNTO", columna: "asunto", ordenable: true, filtro: true, class: "info" },
+
+                    { leyenda: "FECHA DE EMISIÓN", columna: "fecha", ordenable: true, class: "info" },
+
+                    { leyenda: "ESTADO", columna: "estado", ordenable: true, class: "info" },
+
+                    { style: "width: 40px;", class: "info" },//boton ver más
+                ],
+
+                modelo: [
+
+                    { propiedad: "codigo" },
+                    { propiedad: "emisor" },
+                    { propiedad: "titulo" },
+                    { propiedad: "asunto" },
+                    {
+                        propiedad: "fecha", class: "center", formato: function (tr, obj, valor) {
+                            return moment(valor).format("DD/MM/YYYY HH:mm:ss")
+                        }
+                    },
+
+                    { propiedad: "estado" },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/Notificacion/MiNotificacion/")'
+                            + obj.codigo, contenido: "Verificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Ver Notificación" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+                ],
+
+                url: '@Url.Content("~/Admin/Notificacion/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [5, 10, 20, 50], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'asunto',
+                columna_orden: "DESC"
+            });
+    })
+</script>

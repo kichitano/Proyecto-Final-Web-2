@@ -1,0 +1,103 @@
+﻿@model List<SistemaPortafolio.Models.TipoPersona>
+@{
+
+}
+
+
+<br />
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/Admin/TipoPersona/AgregarEditar/">Nuevo Tipo de Persona</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "ID", columna: "tipopersona_id", class: "info", ordenable: true },
+
+                    { leyenda: 'TIPO DE PERSONA', style: 'width:200px;', class: "info", columna: 'nombre', ordenable: true, filtro: true },
+
+
+                    { leyenda: "ESTADO", columna: "estado", class: "info" },
+
+
+                { style: 'Width: 40px;', class: "info" },//visualizar
+                { style: 'Width: 40px;', class: "info" },//Modificar
+                { style: 'Width: 40px;', class: "info" },//Elimianr
+                ],
+
+                modelo: [
+
+                    { propiedad: "tipopersona_id" },
+                    {
+                        propiedad: "nombre", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoPersona/AgregarEditar/")'
+                            + obj.tipopersona_id, contenido: valor
+                            });
+                        }
+                    },
+
+
+
+                { propiedad: "estado" },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoPersona/Ver/")'
+                            + obj.tipopersona_id, contenido: "Detalle",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
+                            class: 'btn btn-success btn-sm'
+                            });
+                        }
+                    },
+
+
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoPersona/AgregarEditar/")'
+                            + obj.tipopersona_id, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoPersona/Eliminar/")'
+                            + obj.tipopersona_id, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/TipoPersona/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'tipopersona_id',
+                columna_orden: "ASC"
+            });
+    })
+</script>

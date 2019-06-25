@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+    SistemaPortafolio.Models.Usuario usuario = new SistemaPortafolio.Models.Usuario().Obtener(SistemaPortafolio.Models.SessionHelper.GetUser());
+}
+
+<h3>Redireccionando...</h3>
+
+@if(usuario.TipoUsuario1.nombre.Equals("Administrador"))
+{
+    <text>
+<script>
+    var str = location.pathname;
+    var res = str.split('/');
+
+    location = res[0] + '/Admin/Home';
+</script>
+</text> 
+}
+else
+{
+    <script>
+        var str = location.pathname;
+        var res = str.split('/');
+
+        location = res[0] + '/User/Home';
+    </script>
+}

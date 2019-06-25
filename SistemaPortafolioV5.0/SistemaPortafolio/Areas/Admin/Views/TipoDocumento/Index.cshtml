@@ -1,0 +1,86 @@
+﻿@model List<SistemaPortafolio.Models.TipoDocumento>
+@{
+
+}
+<br />
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="text-right">
+            <br />
+            <a href="~/Admin/TipoDocumento/AgregarEditar/"
+               class="btn btn-primary pull-right">Nuevo Tipo de Documento</a>
+        </div><br /><br />
+        <div id="Grilla" class="panel-group"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function ()
+    {
+        $("#Grilla").anexGrid(
+            {
+                class: 'table table-hover',
+                columnas: [
+
+                    { leyenda: "CÓDIGO", style: 'width:20px;', columna: "codigo", class: "info", ordenable: true },
+
+                    { leyenda: "TIPO DE PERSONA", style: 'width:20px;', columna: "persona", class: "info", ordenable: true },
+
+                    { leyenda: 'TIPO DE DOCUMENTO', style: 'width:200px;', columna: 'nombre', filtro: true, class: "info" },
+
+                    { leyenda: 'EXTENSIÓN', style: 'width:200px;', columna: 'extension', filtro: true, class: "info" },
+
+                    { style: "width: 40px;", class: "info" },//boton modificar
+                    { style: "width: 40px;", class: "info" },//boton eliminar
+                ],
+
+                modelo: [
+
+                    { propiedad: "codigo" },
+                    { propiedad: "persona" },
+                    {
+                        propiedad: "nombre", formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoDocumento/AgregarEditar/")'
+                            + obj.codigo, contenido: valor
+                            });
+                        }
+                    },
+                    { propiedad: "extension" },
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoDocumento/AgregarEditar/")'
+                            + obj.codigo, contenido: "Modificar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
+                            class: 'btn btn-info btn-sm'
+                            });
+                        }
+                    },
+
+                    {
+                        formato: function (tr, obj, valor) {
+                            return anexGrid_link({
+                                href: '@Url.Content("~/Admin/TipoDocumento/Eliminar/")'
+                            + obj.codigo, contenido: "Eliminar",
+                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
+                            class: 'btn btn-danger btn-sm',
+                                attr: [
+                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
+                                ]
+                            });
+                        },
+                    }
+                ],
+
+                url: '@Url.Content("~/Admin/TipoDocumento/CargarGrilla/")',
+                filtrable: true,
+                paginable: true, //para mostrar la paginación
+                limite: [5, 10, 20, 30], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
+                columna: 'codigo',
+                columna_orden: "DESC"
+            });
+    })
+</script>

@@ -1,0 +1,36 @@
+﻿@model SistemaPortafolio.Models.Usuario
+@{
+    ViewBag.Title = "Ver";
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>DETALLE</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Usuario/Index">Usuario</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Información del Usuario
+            </div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>ID</dt>
+                    <dd>@Model.usuario_id</dd>
+                    <dt>Persona</dt>
+                    <dd>@Model.Persona.nombre @Model.Persona.apellido</dd>
+                    <dt>Tipo de Usuario</dt>
+                    <dd>@Model.TipoUsuario1.nombre</dd>
+                    <dt>Nombre</dt>
+                    <dd>@Model.nombre</dd>
+                    <dt>Password</dt>
+                    <dd>@Model.clave</dd>
+                    <dt>Avatar</dt>
+                    <dd>@Model.avatar</dd>
+                    <dt>Estado</dt>
+                    <dd>@Model.estado</dd>
+                </dl>
+            </div>
+        </div>
+        </div></div>

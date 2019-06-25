@@ -1,0 +1,62 @@
+﻿@model  SistemaPortafolio.Models.Semestre
+@{
+    ViewBag.Title = "Ver";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>DETALLE</h2>
+        <ol class="breadcrumb">
+            <li><a href="~/Admin/Semestre/Index">Semestre</a></li>
+            <li class="active">@Model.nombre</li>
+        </ol>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Información Detallada del Semestre</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>ID</dt>
+                    <dd>@Model.semestre_id</dd>
+                    <dt>Semestre</dt>
+                    <dd>@Model.nombre</dd>
+                    <dt>Año</dt>
+                    <dd>@Model.anio</dd>
+                    <dt>Fecha de Inicio</dt>
+                    @try
+            {
+                System.DateTime dt;
+                dt = Convert.ToDateTime(Model.fechainicio);
+
+                string fecha;
+                fecha = dt.ToString("dd/MM/yyyy");
+
+                        <dd>@fecha</dd>
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    <dt>Fecha de Finalización</dt>
+                    @try
+            {
+                System.DateTime dt;
+                dt = Convert.ToDateTime(Model.fechafin);
+
+                string fecha;
+                fecha = dt.ToString("dd/MM/yyyy");
+
+                        <dd>@fecha</dd>
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                    <dt>Estado</dt>
+                    <dd>@Model.estado</dd>
+                </dl>
+
+            </div>
+        </div>
+
+        </div></div>

@@ -1,0 +1,26 @@
+﻿@model  SistemaPortafolio.Models.HojaVidaDocenteCRP
+@{
+    ViewBag.Title = "HojaVidaDocenteCRP";
+}
+<h2>Ver</h2>
+<ol class="breadcrumb">
+    <li><a href="~/Admin/HojaVidaDocenteCRP/Index">HojaVidaDocenteCRP</a></li>
+    <li class="active">@Model.certificacion</li>
+</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">Información Detallada de la HojaVidaDocenteCRP</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd>@Model.hojavida_id</dd>
+            <dt>certificacion</dt>
+            <dd>@Model.certificacion</dd>
+            <dt>institucion</dt>
+            <dd>@Model.institucion</dd>
+            <dt>año</dt>
+            <dd>@Model.año</dd>
+        </dl>
+
+    </div>
+</div>
+
